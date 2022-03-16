@@ -1,0 +1,110 @@
+\documentclass[14pt]{beamer}
+\usepackage{ctex}
+\usepackage{bm}
+%\usepackage{xeCJK} % important! Without this Chinese fonts won't show
+%\usepackage{xeCJKfntef}
+\setsansfont{Linux Biolinum G}
+\setCJKsansfont{Source Han Sans CN}
+\setCJKmainfont{Noto Serif SC}
+
+\usefonttheme[onlymath]{serif} % formulars in serif font
+\usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
+\parskip=10pt
+
+%\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+
+%%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
+
+\title{第3讲：线性回归}
+\subtitle{分析数据从$y=ax+b$开始}
+\author{熊耀华}
+\institute{交通工程系}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{什么是线性回归?}
+
+\begin{frame}
+    \frametitle{回归问题}
+
+    回归（Regression）是一类数据处理的理论工具，用来寻找连续变量之间的函数规律。
+
+    \begin{description}
+        \item[变量] 一个可以变化的数字，描述自然或社会的某种现象、属性。
+        \item[连续] 可以在数轴某个区间上任意取值。
+    \end{description}
+\end{frame}
+
+\begin{frame}
+    \frametitle{回归问题}
+    以出行需求预测问题为例，对某个交通小区，令$x$表示人口、$y$表示交通出行量，我们假设两者之间存在函数关系
+        \[ y = f(x) \]
+
+    核心问题是，如何确定函数$f$。
+\end{frame}
+
+\begin{frame}
+    \frametitle{线性假设}
+    函数$f$理论上可以是任何形式，但那样问题过于复杂。为了方便求解，我们假设$f$是一个线性函数
+    \[y=ax+b\]
+
+    此时核心问题变成，如何确定参数$a$和$b$，也称为线性回归（Linear Regression）。
+\end{frame}
+
+\begin{frame}
+    \frametitle{确定参数$a$和$b$}
+    假设我们随机调查了该城市中两个小区的出行情况，结果如下
+    \begin{table}
+        \begin{tabular}{l c c}
+            小区编号 & 人口$x$ & 出行量$y$ \\
+            \hline\hline
+            1   & 1000  & 20 \\
+            2   & 1500  & 35 \\
+            
+        \end{tabular}
+    \end{table}
+
+    根据这些数据可以确定参数$a$和$b$。
+\end{frame}
+
+\begin{frame}
+    \frametitle{确定参数$a$和$b$}
+    根据两组调查数据，我们列出未知数$a$、$b$的方程组
+    \begin{align*}
+        1000a+b&=20\\
+        1500a+b&=35
+    \end{align*}
+
+    求解可得$a=0.03$、$b=-10$
+\end{frame}
+
+\begin{frame}
+    \frametitle{确定参数$a$和$b$}
+    前页中的方程组可以整理成矩阵形式
+    \begin{align*}
+        \begin{bmatrix}
+            1000 & 1\\
+            1500 & 1
+        \end{bmatrix}\cdot
+        \begin{bmatrix}
+            a \\
+            b
+        \end{bmatrix}=
+        \begin{bmatrix}
+            20\\
+            35
+        \end{bmatrix}
+    \end{align*}
+
+    进一步表示为符号
+    \[\mat{A}\cdot \vec{\theta}=\vec{b}\]
+    
+
+\end{frame}
+\end{document}
