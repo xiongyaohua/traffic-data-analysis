@@ -3,9 +3,9 @@
 \usepackage{bm}
 %\usepackage{xeCJK} % important! Without this Chinese fonts won't show
 %\usepackage{xeCJKfntef}
-\setsansfont{Linux Biolinum G}
-\setCJKsansfont{Source Han Sans CN}
-\setCJKmainfont{Noto Serif SC}
+\setsansfont{Linux Biolinum}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmainfont{Noto Serif CJK SC}
 
 \usefonttheme[onlymath]{serif} % formulars in serif font
 \usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
@@ -101,9 +101,11 @@
             35
         \end{bmatrix}
     \end{align*}
-
-    进一步表示为符号
+    或者
     \[\mat{A}\cdot \vec{\theta}=\vec{b}\]
+
+    参数$\vec{\theta}$有唯一解的前提条件是$\mat{A}$可逆，此时
+    \[ \vec{\theta}= \mat{A}^{-1}\cdot\vec{b}\]
     
 
 \end{frame}
