@@ -1,11 +1,14 @@
+%\documentclass[14pt,aspectratio=169]{beamer}
 \documentclass[14pt]{beamer}
 \usepackage{ctex}
 \usepackage{bm}
+\usepackage{color, colortbl}
+\definecolor{HRed}{rgb}{1,.2,.2}
 %\usepackage{xeCJK} % important! Without this Chinese fonts won't show
 %\usepackage{xeCJKfntef}
-\setsansfont{Linux Biolinum}
-\setCJKsansfont{Noto Sans CJK SC}
-\setCJKmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC Light}
+\setCJKsansfont{Noto Sans CJK SC Light}
+\setCJKmainfont{Noto Serif CJK SC Light}
 
 \usefonttheme[onlymath]{serif} % formulars in serif font
 \usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
@@ -14,7 +17,10 @@
 %\newcommand{\mat}[1]{\bm{#1}}
 \newcommand{\mat}[1]{\bm{#1}}
 \renewcommand{\vec}[1]{\bm{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries}
 %%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
 
 \title{第3讲：线性回归}
@@ -106,7 +112,101 @@
 
     参数$\vec{\theta}$有唯一解的前提条件是$\mat{A}$可逆，此时
     \[ \vec{\theta}= \mat{A}^{-1}\cdot\vec{b}\]
-    
-
 \end{frame}
+
+\begin{frame}
+    \frametitle{新数据带来问题}
+    假如我们调查了一个新的小区
+    \begin{table}
+        \begin{tabular}{l c c}
+            小区编号 & 人口$x$ & 出行量$y$ \\
+            \hline\hline
+            1   & 1000  & 20 \\
+            2   & 1500  & 35 \\
+            \rowcolor{HRed} 3 & 1200 & 30      
+        \end{tabular}
+    \end{table}
+
+    新数据给拟合带来困难。
+\end{frame}
+
+\begin{frame}
+    \frametitle{新数据带来问题}
+    此时方程变为
+    \begin{align*}
+        \begin{bmatrix}
+            1000 & 1\\
+            1500 & 1\\
+            1200 & 1\\
+        \end{bmatrix}\cdot
+        \begin{bmatrix}
+            a \\
+            b
+        \end{bmatrix}=
+        \begin{bmatrix}
+            20\\
+            35\\
+            30
+        \end{bmatrix}
+    \end{align*}
+
+    $\vec{\theta}=
+    \begin{bmatrix}
+        a & b
+    \end{bmatrix}^T$没有解，因为
+    \[
+        \mat{A}=    
+        \begin{bmatrix}
+            1000 & 1\\
+            1500 & 1\\
+            1200 & 1\\
+        \end{bmatrix}
+        \]
+    中约束的数量大于未知数的数量。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{寻找最佳拟合}
+        对于3组数据我们无法找到完美拟合的参数$\vec{\theta}$，我们退求其次
+        寻找最佳拟合$\vec{\theta}^*$。
+        
+        如何定义最佳？残差的平方和最小。
+        \begin{description}
+            \item[残差] 观测值和预测值之差。观测值为$\vec{b}$，对给定参数$\vec{\theta}$预测值为$\mat{A}\cdot\vec{\theta}$，因此残差为$\vec{e}=\vec{b}-\mat{A}\cdot\vec{\theta}$ 
+            \item[平方和] 求和可以得到总体误差；取平方可以避免正负抵消。 
+        \end{description}
+    \end{frame}
+    \begin{frame}
+        \frametitle{平方和的内积形式}
+        平方和可以缩写成向量内积形式
+        \begin{align*}
+            \sum_{i=1}^n e_i^2&= e_1e_1+e^2e^2+\cdots\\
+                    &=\begin{bmatrix}
+                        e_1 & e_2 & \cdots
+                    \end{bmatrix}\cdot
+                    \begin{bmatrix}
+                        e_1\\
+                        e_2\\
+                        \vdots
+                    \end{bmatrix}\\
+                    &=\vec{e}^T\cdot\vec{e}
+        \end{align*}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{寻找最佳拟合}
+        基于以上分析，直线拟合问题转化为最优化问题，$\vec{\theta}$取什么值时$\vec{e}^T\vec{e}$最小。
+        \[ \min_{\vec{\theta}} \vec{e}^T\vec{e}\]
+        这个最优值表示为
+        \[\vec{\theta}^*=\argmin \vec{e}^T\vec{e} \]
+
+        这个问题又叫平方和最小问题（Least Square），也翻译成\emph{最小二乘}问题。
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{最优化}
+    
+        
+    
+    \end{frame}
 \end{document}
