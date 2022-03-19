@@ -458,10 +458,76 @@
         求解一个三次多项式回归
     \end{frame}
 
+    \section{数据模型评价}
+
     \begin{frame}
-        \frametitle{<title>}
-    
-        
-    
+        \frametitle{拟合程度指标}
+        通过比较回归模型的\emph{预测值}和\emph{观测值}可以评价模型的质量。
+        \begin{description}
+            \item[预测值] 给定自变量$\Vx$和参数$\Vt$，根据模型计算得到的因变量值，例如
+            $\hat{\Vy}=a\Vx+b$。 $\hat{\Vy}$读作y-hat。
+            \item[观测值] 给定自变量时实际观察到的因变量值$\Vy$，又称为参考值。 
+        \end{description}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{均方差}
+        根据预测值和观测值可以计算\emph{均方差}（Mean Sqaure Error缩写MSE）。
+        \[\text{MSE}=\frac{\Ve^T\Ve}{n}=\left(\sum_{i=1}^{n}e_i^2\right)/n
+         \qquad \Ve=\hat{\Vy}-\Vy\]
+        其中$n$是数据点的数量。
+
+        MSE越小，数据拟合越好。$\text{MSE}$为$0$时数据与模型完美拟合。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{自由度}
+        对于$n$个数据点，我们可以构造$n-1$次多项式。此时$\MA$是$n$行$n$列的正方形矩阵，
+        且$\MA$一般可逆。此时$\Vt$有唯一解，残差为$0$实现完美拟合。
+
+        例如，对于不共线的三个数据点，直线无法完美拟合，抛物线可以。因为抛物线有更多的
+        参数可以调整，可以表示的线条种类更多，具有更大的\emph{自由度}。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{欠拟合和过拟合}
+        模型质量和数据拟合程度并不等价。数据中往往包含内在\emph{规律}和随机\emph{噪音}两种成分
+        \begin{itemize}
+            \item 如果$\text{MSE}$太大，模型不能很好的解释数据的规律，称为\emph{欠拟合}
+            \item 反之$\text{MSE}$太小，模型不能很好的剔除随机噪声，称为\emph{过拟合}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{泛化能力}
+        评价数据模型质量的核心指标是它的\emph{泛化能力}，即根据一个数据样本集构造的模型在
+        \emph{全体数据}上的拟合程度。例如
+        \begin{itemize}
+            \item 全世界所有城市的所有交通小区构成\emph{全体数据}
+            \item 成都市所有交通小区的数据，构成一个\emph{样本集}
+            \item 根据成都数据构造的模型，如果能很好的预测世界上任意城市的出行，
+            那么该模型有很好的泛化能力，或者\emph{迁移性}
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{训练集和测试集}
+        评价模型的泛化能力，理论上需要全体数据，但实际上很难或者不可能获得。一个变通的方法是
+        \begin{itemize}
+            \item 将手上的数据分为两部分，分别称为\emph{训练集}和\emph{测试集}
+            \item 基于训练集构造模型，确定参数
+            \item 在测试集上测试拟合程度
+        \end{itemize}
+
+        这种方式本质上是用测试集代替全体数据，可以在一定程度上避免的过拟合。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{练习}
+        \begin{itemize}
+            \item 划分训练集和测试集
+            \item 在训练集上构造不同自由度的模型
+            \item 在测试集上测试各自的泛化能力
+        \end{itemize}
     \end{frame}
 \end{document}
