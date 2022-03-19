@@ -127,10 +127,10 @@
         \end{bmatrix}
     \end{align*}
     或者
-    \[\mat{A}\cdot \vec{\theta}=\vec{b}\]
+    \[\MA\cdot \vec{\theta}=\vec{b}\]
 
-    参数$\vec{\theta}$有唯一解的前提条件是$\mat{A}$\emph{可逆}，此时
-    \[ \vec{\theta}= \mat{A}^{-1}\cdot\vec{b}\]
+    参数$\vec{\theta}$有唯一解的前提条件是$\MA$\emph{可逆}，此时
+    \[ \vec{\theta}= \MA^{-1}\cdot\vec{b}\]
 \end{frame}
 
 \begin{frame}
@@ -175,7 +175,7 @@
         a & b
     \end{bmatrix}^T$没有解，因为
     \[
-        \mat{A}=    
+        \MA=    
         \begin{bmatrix}
             1000 & 1\\
             1500 & 1\\
@@ -192,7 +192,7 @@
         
         如何定义最佳？残差的平方和最小。
         \begin{description}
-            \item[残差] 观测值和预测值之差。观测值为$\vec{b}$，对给定参数$\vec{\theta}$预测值为$\mat{A}\cdot\vec{\theta}$，因此残差为$\vec{e}=\vec{b}-\mat{A}\cdot\vec{\theta}$ 
+            \item[残差] 观测值和预测值之差。观测值为$\vec{b}$，对给定参数$\vec{\theta}$预测值为$\MA\cdot\vec{\theta}$，因此残差为$\Ve=\vec{b}-\MA\cdot\vec{\theta}$ 
             \item[平方和] 求和可以得到总体误差；取平方可以避免正负抵消。 
         \end{description}
     \end{frame}
@@ -210,14 +210,14 @@
                         e_2\\
                         \vdots
                     \end{bmatrix}\\
-                    &=\vec{e}^T\cdot\vec{e}
+                    &=\Ve^T\cdot\Ve
         \end{align*}
     \end{frame}
 
     \begin{frame}
         \frametitle{损失函数}
         基于以上分析，直线拟合问题转化为最优化问题，
-        $\vec{\theta}$取什么值时$L(\theta)=\vec{e}^T\vec{e}$最小，这个最小值记为。
+        $\vec{\theta}$取什么值时$L(\theta)=\Ve^T\Ve$最小，这个最小值记为。
         \begin{equation} \label{eq:least_square}
             L^*=\min_{\vec{\theta}} L(\vec{\theta})
         \end{equation}
@@ -240,12 +240,12 @@
     \end{frame}
     \begin{frame}
         \frametitle{取偏导数}
-        将$\vec{e}=\mat{A}\vec{\theta}-\vec{b}$代入公式\ref{eq:least_square}有
+        将$\Ve=\MA\vec{\theta}-\vec{b}$代入公式\ref{eq:least_square}有
         \begin{equation}
             \begin{split}
-                L(\vec{\theta})&=\vec{e}^T\vec{e}\\
-                &={(\mat{A}\vec{\theta}-\vec{b})}^T(\mat{A}\vec{\theta}-\vec{b})\\
-                &=\vec{\theta}^T\mat{A}^T\mat{A}\vec{\theta}+\vec{b}^T\vec{b}-\vec{\theta}^T\mat{A}^T-\vec{b}^T\mat{A}\vec{\theta}
+                L(\vec{\theta})&=\Ve^T\Ve\\
+                &={(\MA\vec{\theta}-\vec{b})}^T(\MA\vec{\theta}-\vec{b})\\
+                &=\vec{\theta}^T\MA^T\MA\vec{\theta}+\vec{b}^T\vec{b}-\vec{\theta}^T\MA^T-\vec{b}^T\MA\vec{\theta}
             \end{split}
         \end{equation}
         对$\vec{\theta}$取\emph{偏导数}有
@@ -385,7 +385,7 @@
         \end{equation}
         带入$\Ve=\Vy-\MA\Vt^*$有
         \begin{equation}
-            \MA^T(\Vy-\MA\Vt^*)=\vec{0}
+            \MA^T(\Vy-\MA\Vt^*)=\vec{}
         \end{equation}
         展开有
         \[ \boxed{\MA^T\MA\Vt^*=\MA^T\Vy} \]
