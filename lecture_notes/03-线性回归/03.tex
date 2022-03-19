@@ -110,7 +110,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{确定参数$a$和$b$}
+    \frametitle{矩阵形式}
     前页中的方程组可以整理成矩阵形式
     \begin{align*}
         \begin{bmatrix}
@@ -127,10 +127,11 @@
         \end{bmatrix}
     \end{align*}
     或者
-    \[\MA\cdot \vec{\theta}=\vec{b}\]
+    \[\MA\cdot \vec{\theta}=\Vy\]
+    其中
 
     参数$\vec{\theta}$有唯一解的前提条件是$\MA$\emph{可逆}，此时
-    \[ \vec{\theta}= \MA^{-1}\cdot\vec{b}\]
+    \[ \vec{\theta}= \MA^{-1}\cdot\Vy\]
 \end{frame}
 
 \begin{frame}
@@ -192,7 +193,7 @@
         
         如何定义最佳？残差的平方和最小。
         \begin{description}
-            \item[残差] 观测值和预测值之差。观测值为$\vec{b}$，对给定参数$\vec{\theta}$预测值为$\MA\cdot\vec{\theta}$，因此残差为$\Ve=\vec{b}-\MA\cdot\vec{\theta}$ 
+            \item[残差] 观测值和预测值之差。观测值为$\Vy$，对给定参数$\vec{\theta}$预测值为$\MA\cdot\vec{\theta}$，因此残差为$\Ve=\Vy-\MA\cdot\vec{\theta}$ 
             \item[平方和] 求和可以得到总体误差；取平方可以避免正负抵消。 
         \end{description}
     \end{frame}
@@ -240,12 +241,12 @@
     \end{frame}
     \begin{frame}
         \frametitle{取偏导数}
-        将$\Ve=\MA\vec{\theta}-\vec{b}$代入公式\ref{eq:least_square}有
+        将$\Ve=\MA\vec{\theta}-\Vy$代入公式\ref{eq:least_square}有
         \begin{equation}
             \begin{split}
                 L(\vec{\theta})&=\Ve^T\Ve\\
-                &={(\MA\vec{\theta}-\vec{b})}^T(\MA\vec{\theta}-\vec{b})\\
-                &=\vec{\theta}^T\MA^T\MA\vec{\theta}+\vec{b}^T\vec{b}-\vec{\theta}^T\MA^T-\vec{b}^T\MA\vec{\theta}
+                &={(\MA\vec{\theta}-\Vy)}^T(\MA\vec{\theta}-\Vy)\\
+                &=\vec{\theta}^T\MA^T\MA\vec{\theta}+\Vy^T\Vy-\vec{\theta}^T\MA^T-\Vy^T\MA\vec{\theta}
             \end{split}
         \end{equation}
         对$\vec{\theta}$取\emph{偏导数}有
