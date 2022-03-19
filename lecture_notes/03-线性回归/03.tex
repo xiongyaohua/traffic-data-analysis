@@ -53,7 +53,7 @@
     \titlepage
 \end{frame}
 
-\section{什么是线性回归?}
+\section{线性回归基本原理}
 
 \begin{frame}
     \frametitle{回归问题}
@@ -394,9 +394,73 @@
         正好是最小二乘法的解析解！
     \end{frame}
 
+    \section{线性回归的扩展形式}
+
     \begin{frame}
         \frametitle{多元线性回归}
-        前面的例子里面，我们假设
+        前面的例子假设出行量$\Vy$只有一个影响因素，人口$\Vx$；实际上还可能有其他因素，例如
+        平均收入。
+        
+        此时问题转化为\emph{多元}线性回归
+        \begin{equation}
+            \Vy = a\cdot\Vx_1+b\cdot\Vx_2+c\cdot\vec{1}
+        \end{equation}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{多元线性回归}
+        方程组可以写成相同的矩阵形式
+        \begin{equation}
+            \MA\cdot\Vt=\Vy
+        \end{equation}
+        
+        只是此时$\MA=\begin{bmatrix}
+                \Vx_1 & \Vx_2 & \vec{1}
+            \end{bmatrix}$
+            ，$\Vt=\begin{bmatrix}a&b&c\end{bmatrix}^T$
+
+        对于更多自变量的情况可以依此类推。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{练习}
+        求解一个二元线性回归
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{多项式回归}
+        对于某些数据，自变量和因变量明显不在一条直线上，用直线拟合效果肯定不佳。
+        此时我们可以用\emph{多项式}曲线来拟合。
+
+        这里看一个二次多项式，也就是抛物线的例子。
+        \begin{equation}
+            \Vy = a\Vx^2+b\Vx+c\vec{1}
+        \end{equation}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{多项式回归}
+        方程组可以写成相同的矩阵形式
+        \begin{equation}
+            \MA\cdot\Vt=\Vy
+        \end{equation}
+        
+        只是此时$\MA=\begin{bmatrix}
+                \Vx^2 & \Vx & \vec{1}
+            \end{bmatrix}$
+            ，$\Vt=\begin{bmatrix}a&b&c\end{bmatrix}^T$
+
+        对于更高次多项式可以依此类推。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{练习}
+        求解一个三次多项式回归
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{<title>}
+    
         
     
     \end{frame}
