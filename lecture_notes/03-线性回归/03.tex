@@ -128,10 +128,11 @@
     \end{align*}
     或者
     \[\MA\cdot \vec{\theta}=\Vy\]
-    其中
-
-    参数$\vec{\theta}$有唯一解的前提条件是$\MA$\emph{可逆}，此时
-    \[ \vec{\theta}= \MA^{-1}\cdot\Vy\]
+    其中$\MA=\begin{bmatrix}
+        \Vx & \vec{1}
+    \end{bmatrix}$；$\Vx$是自变量，$\Vy$是因变量，$\Vt$是参数。
+    参数$\Vt$有唯一解的前提条件是$\MA$\emph{可逆}，此时
+    $\vec{\theta}= \MA^{-1}\cdot\Vy$
 \end{frame}
 
 \begin{frame}
