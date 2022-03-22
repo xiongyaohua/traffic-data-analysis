@@ -1,0 +1,305 @@
+%\documentclass[14pt,aspectratio=169]{beamer}
+\documentclass[14pt]{beamer}
+\usepackage{ctex}
+\usepackage{bm}
+\usepackage{color, colortbl}
+\definecolor{HRed}{rgb}{1,.2,.2}
+%\usepackage{xeCJK} % important! Without this Chinese fonts won't show
+%\usepackage{xeCJKfntef}
+\setsansfont{Noto Sans CJK SC Light}
+\setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
+\setCJKmainfont{Noto Serif CJK SC Light}
+
+\usefonttheme[onlymath]{serif} % formulars in serif font
+\usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
+\parskip=10pt
+
+%\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\MA}{\mat{A}}
+\newcommand{\MI}{\mat{I}}
+\newcommand{\Va}{\Vec{a}}
+\newcommand{\Vy}{\vec{y}}
+\newcommand{\Vx}{\vec{x}}
+\newcommand{\Ve}{\vec{e}}
+\newcommand{\Vt}{\vec{\theta}}
+\newcommand{\SR}{\mathcal{R}}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\color{red}\em}
+
+%%%%%%%%%%%%%%% Section标题页 %%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
+
+\title{第4讲：梯度下降法}
+\subtitle{线性回归的数值解}
+\author{熊耀华}
+\institute{交通工程系}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{线性回归数值解}
+
+\begin{frame}
+  \frametitle{解析解}
+  之前的例子通过公式推导求解
+  $$\Vt^*=\argmin L(\Vt)$$
+  得到的公式称为\emph{解析解}，例如
+  \begin{equation*}
+    \MA^T\MA\Vt^*=\MA^T\Vy \qquad (\MA^T\MA+\lambda\MI)\Vt^*=\MA^T\Vy
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{数值解}
+  解析解虽然在数学上更优雅，但实际应用中往往通过\emph{数值方法}求\emph{数值解}
+  \begin{itemize}
+    \item 很多模型的损失函数没有解析解，只能求数值解
+    \item 对于大量数据，数值解可以用\emph{精度换时间}，快速得到低精度结果
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{梯度下降法}
+  \emph{梯度下降法}（Gradient Descent）是最小化问题中的常用数值方法，基本思路如下
+  \begin{enumerate}
+    \item 将目标函数$L(\Vt)$看作起伏不平的地面，要找到地面最低点
+    \item 从随机位置开始
+    \item 观察该位置上不同方向的坡度，选择坡度\emph{下降最快}的方向，前进一定距离
+    \item 新位置坡度是否为$0$？
+    \item 是则到达最低点，结束；否则回到第3步
+  \end{enumerate}
+\end{frame}
+  
+\begin{frame}
+  \frametitle{梯度方向}
+  连续函数$L(\Vt)$的\emph{梯度}$\nabla L$（读做nabla L）是所有偏导数构成的向量
+  \begin{equation}
+    \nabla_{\Vt} L(\Vt) = \begin{bmatrix}
+      \frac{\partial L}{\partial\theta_1}(\Vt)\\
+      \frac{\partial L}{\partial\theta_2}(\Vt)\\
+      \frac{\partial L}{\partial\theta_3}(\Vt)\\
+      \vdots
+    \end{bmatrix}
+  \end{equation}
+  用梯度可以估计函数自变量变化$\Delta\Vt$时，函数值的变化
+  $$\Delta L ={{\nabla L(\Vt)}^T\cdot\Delta\Vt}$$
+\end{frame}
+
+\begin{frame}
+  \frametitle{梯度反方向下降最快}
+  可以证明，如果$\Delta\Vt$长度一定，方向可变，那么当$\Delta\Vt$与梯度方向一致时$\Delta L$最大。
+  
+  提示：向量点积有如下性质
+  $$\Vx\cdot\Vy=\|\Vx\|\|\Vy\|\cos\alpha$$
+  其中$\alpha$是两个向量的夹角。
+
+  因此梯度方向是函数值上升最快的方向，而梯度的反方向是函数值\emph{下降最快}的方向。
+\end{frame}
+
+\begin{frame}
+  \frametitle{梯度下降迭代公式}
+  基于以上分析，梯度下降法可以表示为迭代公式
+  \begin{equation}
+    \Vt^{n+1}=\Vt^n-\eta\cdot\nabla_{\Vt} L(\Vt^n)
+  \end{equation}
+  其中$\eta$（eta）称为\emph{学习速率}（Learning Rate），控制参数$\Vt$的迭代更新速度
+\end{frame}
+
+\begin{frame}
+  \frametitle{损失函数的梯度}
+      线性回归的损失函数是
+      \begin{equation*}
+        L(\Vt)=(\MA\Vt-\Vy)^T(\MA\Vt-Vy)
+      \end{equation*}
+      对$\Vt$求偏导有
+      \begin{equation*}
+        \boxed{\nabla_{\Vt}L(\Vt)=\MA^T\MA\Vt-\MA^T\Vy}
+      \end{equation*}
+
+      Ridge回归的损失函数是
+      \begin{equation*}
+        L(\Vt)=(\MA\Vt-\Vy)^T(\MA\Vt-Vy)+\lambda\Vt^T\Vt
+      \end{equation*}
+      对$\Vt$求偏导有
+      \begin{equation*}
+        \boxed{\nabla_{\Vt}L(\Vt)=(\MA^T\MA+\lambda\MI)\Vt-\MA^T\Vy}
+      \end{equation*}
+      
+\end{frame}
+
+\begin{frame}
+  \frametitle{梯度下降法常见问题}
+  使用梯度下降法容易遇到的问题有
+  \begin{itemize}
+    \item 学习速率过大，\emph{震荡}而不收敛
+    \item 学习速率过小，收敛慢
+    \item 遇到\emph{局部最优值}，落入“陷阱”
+    \item 遇到\emph{平台}，收敛慢
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{练习}
+  使用梯度下降法求解线性回归，画出损失函数和迭代次数的变化曲线，也称为\emph{学习曲线}
+\end{frame}
+
+\begin{frame}
+  \frametitle{优化梯度计算速度}
+  之前的梯度计算因为要用到所有的数据$\Vx$、$\Vy$，因此称为\emph{批处理}（batch）。
+  
+  当数据量很大时，批处理计算速度较慢，需要优化。两个常见的思路是
+  \begin{itemize}
+    \item 随机（stochastic）梯度下降，每次迭代随机选取\emph{一个}数据计算下降方向
+    \item 分批（mini-batch）梯度下降，每次迭代随机选取\emph{一组}数据计算下降方向
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{随机梯度下降}
+  以线性回归为例，某次迭代中随机选择了第$n$个数据$(x_n, y_n)$。此时损失函数为
+  \begin{equation}
+    L(\Vt)={(y_n-\Va^*_n\cdot\Vt)}^2
+  \end{equation}
+  其中$\Va^*_n$是$\MA$的第$n$对$\Vt$求偏导有
+  \begin{equation}
+    \begin{split}
+      \nabla_{\Vt}L(\Vt) &=\Va^*_n{\Va^*_n}^T\Vt+\Va^*_ny_n\\
+      &=(x_n^2+1)\Vt+(x_n+1)y_n
+    \end{split}
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{分批梯度下降}
+  分批（mini-batch）梯度下降是batch和stochastic之间的妥协。
+  
+  某次迭代中随机选择一组$n$个数据，损失函数为
+  \begin{equation}
+    L(\Vt)={(y_n-\MA^{(n)}\cdot\Vt)}^2
+  \end{equation}
+  其中$\MA^{(n)}$是$\MA$的随机选择$n$行构成的\emph{子矩阵}（sub matrix），偏导为
+  \begin{equation}
+      \nabla_{\Vt}L(\Vt)= \MA^{(n)} {\MA^{(n)}}^T\Vt+\MA^{(n)}\Vy^{(n)}
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{练习}
+  用stochastic和mini-batch方法求解线性回归，画出$\Vt$的\emph{相空间}图。
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lasso回归}
+ Least Absolute Shrinkage and Selection Operator Regression，简称\emph{Lasso}回归。
+ 
+ Ridge回归的损失函数是
+ $$L(\Vt)=\Ve^T\Ve+\lambda\Vt^t\Vt=\Ve^T\Ve+\lambda{\color{red}\sum\theta_i^2}$$
+而Lasso回归的损失函数是
+\begin{equation}
+L(\Vt)=\Ve^T\Ve+\lambda{\color{red}\sum|\theta_i|}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ridge、Lasso和范数}
+  Ridge回归的\emph{正则项}是参数矢量$\Vt$各元素的\emph{平方和}，Lasso回归中的正则项是元素的\emph{绝对值之和}。
+
+  本质上是两种计算矢量“长度”的方法，是矢量\emph{范数}（norm）的特殊形式。对于矢量$\Vx={x_1,\ldots,x_n}$范数的一般定义为
+  \begin{equation}
+    \|\Vx\|_p=\left(\sum_{i=1}^n{|x_i|}^p\right)^{1/p}
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{常用范数}
+  范数$\|\|_p$的参数$p$可以取任何正数。但常见的取值和他们的性质如下
+  \begin{description}
+    \item[$\|\Vx\|^0$] 矢量中非0元素的个数，严格来说不是范数
+    \item[$\|\Vx\|^1$] 绝对值之和，带来稀疏性
+    \item[$\|\Vx\|^2$] 平方和，又称\emph{欧几里德长度}，符合我们的几何直觉
+    \item[$\|\Vx\|^\infty$] 最大元素$\max\{x_1,\ldots,x_n\}$
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lasso带来参数稀疏性}
+  Lasso回归使用$1$次范数作为正则项，目的是使参数矢量$\Vt$\emph{稀疏}。
+
+  $1$次正则项的几何形状可以解释稀疏性
+  
+  稀疏的好处是，大量参数为$0$，对应的属性对模型预测不产生影响。因此通过Lasso回归可以识别\emph{相关属性}和\emph{无关属性}。
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ridge和Lasso的混合}
+  Ridge回归具有\emph{稳定性}而Lasso回归具有\emph{稀疏性}。Elastic net是两者混合，损失函数定义为
+  \begin{equation}
+    L(\Vt)=\Ve^T\Ve+\eta(r\sum|\theta_i|+(1-r)\frac{1}{2}\sum\theta_i^2)
+  \end{equation}
+  其中$r$表示Ridge和Lasso的相对权重。
+
+  适当的混合比例可以使模型同时具有两者的良好性质。
+\end{frame}
+
+\section{分类模型}
+
+\begin{frame}
+  \frametitle{分类模型}
+  前面的回归模型中，我们建立了函数关系$f:\Vx\to\Vy$用于从$\Vx$预测$\Vy$，此时$\Vy\in \SR$可以取任何值。
+
+  现在我们希望建立函数，判断$\Vx$\emph{是否}满足某种条件。此时$\Vy$应当表示满足条件的概率，$\Vy\in[0,1]$
+
+  为此我们可以构造一个函数$g:\SR\to[0,1]$，与$f$组成复合函数
+  \begin{equation}
+    g\circ f:\Vx\to[0,1]
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic函数}
+  满足$g:\SR\to[0,1]$的函数中，最常用的称为Logisitic函数（或者Sigmoid函数）
+  \begin{equation}
+    \sigma(t)=\frac{1}{1+e^{-t}}
+  \end{equation}
+  从函数图像可以看出
+  \begin{itemize}
+    \item $\lim_{t\to\infty}\sigma(t)=1$
+    \item $\lim_{t\to-\infty}\sigma(t)=0$
+    \item 关于$(0, 0.5)$对称
+  \end{itemize}
+  
+
+\end{frame}
+\begin{frame}
+  \frametitle{Logistic回归}
+
+  <title>
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{交叉熵}
+
+  
+
+\end{frame}
+\end{document}

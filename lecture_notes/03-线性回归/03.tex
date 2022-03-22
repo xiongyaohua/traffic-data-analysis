@@ -20,6 +20,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \newcommand{\MA}{\mat{A}}
+\newcommand{\MI}{\mat{I}}
 \newcommand{\Va}{\Vec{a}}
 \newcommand{\Vy}{\vec{y}}
 \newcommand{\Vx}{\vec{x}}
@@ -511,7 +512,7 @@
     \end{frame}
 
     \begin{frame}
-        \frametitle{训练集和测试集}
+        \frametitle{如何测试评价泛化能力}
         评价模型的泛化能力，理论上需要全体数据，但实际上很难或者不可能获得。一个变通的方法是
         \begin{itemize}
             \item 将手上的数据分为两部分，分别称为\emph{训练集}和\emph{测试集}
@@ -529,5 +530,46 @@
             \item 在训练集上构造不同自由度的模型
             \item 在测试集上测试各自的泛化能力
         \end{itemize}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{改进过拟合模型}
+        测试发现模型过拟合说明模型的自由度过大，解决方法有
+        \begin{itemize}
+            \item 减少参数数量
+            \item 约束参数取值范围
+        \end{itemize}
+        第二种方法称为\emph{正则化}（Regularization）。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Ridge Regression}
+        线性回归有多种正则化形式，最常见的可能是Ridge Regression。损失函数定义为
+        \begin{equation}
+            L(\Vt)=\Ve^T\Ve+{\color{red}\frac{1}{2}\lambda\Vt^T\Vt}
+        \end{equation}
+        其中$\Vt^T\Vt$是所有参数$\Vt$的平方和，$\lambda$
+        表示参数平方和的相对重要性
+
+        这个损失函数要求在残差平方和$\Ve^T\Ve$最小的基础上让参数的平方和也尽量小。
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Ridge Regression解析解}
+        使用同样的分析方法，求解偏导数等于$\vec{0}$的方程
+        \begin{equation}
+            \frac{\partial L(\Vt)}{\partial\Vt}\bigg|_{\Vt^*}=\vec{0}
+        \end{equation}
+        可以得到最优参数的解析解
+        \begin{equation}
+            (\MA^T\MA+{\color{red}\lambda\MI})\Vt=\MA^T\Vy
+        \end{equation}
+
+        $\lambda\MI$抬高了$\MA^T\MA$矩阵对角线上的值，看起来像\emph{山脊}（Ridge）
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{练习}
+        使用大小不同的$\lambda$拟合数据，总结规律。
     \end{frame}
 \end{document}
