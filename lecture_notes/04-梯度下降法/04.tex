@@ -391,10 +391,67 @@ L(\Vt)=\Ve^T\Ve+\lambda{\color{red}\sum|\theta_i|}
   \frametitle{练习}
   梯度下降法进行二个属性数据的分类，画出属性空间图。注意边界
   
-
 \end{frame}
+
+\begin{frame}
+  \frametitle{从两类到多类}
+  Logistic回归只能解决分两类的问题，扩展到多类上称为Softmax模型。
+
+  假设存在$k$个类别，每个类别都有一组\emph{打分系数}$\Vt_j,1\leq j\leq k$。
+  某组样本$(\Vx_i, y_i)$与类别吻合的分数分别为
+  \begin{equation}
+    s_{ij}=\Vt_j^T\cdot\Vx_i
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{分数到概率}
+  根据分数，最终样本$i$属于类别$j$的概率为
+  \begin{equation}
+    \hat{p}_{ij}=\frac{e^{s_{ij}}}{\sum_{j=1}^k e^{s_{ij}}}
+  \end{equation}
+
+  这个函数称为softmax，相对于“hard” max。
+  \begin{itemize}
+    \item “hard” max从一组数中挑出最大的数字，让他的对应权重为$1$，其余为$0$
+    \item Softmax扩大最大数字的权重，如果\emph{反复应用}，最大元素的权重趋于$1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic回归是Softmax的特例}
+  当类别数量$k=2$时，Softmax和Logistic回归等价。
+
+  TODO证明
+\end{frame}
+
+\begin{frame}
+  \frametitle{Softmax的损失函数}
+  使用类似于Logistic回归的分析方法，可以构造出Softmax的损失函数
+  \begin{equation}
+    L(\Vt)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=i}^k y_{ij}\log(\hat{p}_{ij})
+  \end{equation}
+  其中$y_{ij}$表示第$i$个样本是否属于第$j$类，在$\{0,1\}$内取值。
+  这个损失函数又称为\emph{交叉熵}函数。
+\end{frame}
+
 \begin{frame}
   \frametitle{交叉熵}
+  \emph{熵}(entropy)和\emph{交叉熵}(cross entropy)都是来自于信息论的概念。其中熵的定义
+  是，对于分布函数$p(x)$，熵表示包含信息的多少，定义为
+  \begin{equation}
+    E(p)=-\sum_x p(x)\log({\color{red}p(x)})
+  \end{equation}
+  相应的交叉熵用于比较两个不同分布$p(x)$，$q(x)$差别大小，定义为
+  \begin{equation}
+    H(p,q)=-\sum_x p(x)\log({\color{red}q(x)})
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{交叉熵}
+  $\{y_{ij}:1\leq j\leq k\}$和$\{\hat{y}_{ij}:1\leq j\leq k\}$是两个不同的分布，
+  因此Softmax的损失函数符合交叉熵的定义。
 
   
 
