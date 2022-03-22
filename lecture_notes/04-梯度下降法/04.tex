@@ -124,27 +124,36 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{损失函数的梯度}
+  \frametitle{线性回归的梯度}
       线性回归的损失函数是
       \begin{equation*}
-        L(\Vt)=(\MA\Vt-\Vy)^T(\MA\Vt-Vy)
+        L(\Vt)=\frac{1}{m}(\MA\Vt-\Vy)^T(\MA\Vt-Vy)
       \end{equation*}
       对$\Vt$求偏导有
-      \begin{equation*}
-        \boxed{\nabla_{\Vt}L(\Vt)=\MA^T\MA\Vt-\MA^T\Vy}
-      \end{equation*}
-
-      Ridge回归的损失函数是
-      \begin{equation*}
-        L(\Vt)=(\MA\Vt-\Vy)^T(\MA\Vt-Vy)+\lambda\Vt^T\Vt
-      \end{equation*}
-      对$\Vt$求偏导有
-      \begin{equation*}
-        \boxed{\nabla_{\Vt}L(\Vt)=(\MA^T\MA+\lambda\MI)\Vt-\MA^T\Vy}
-      \end{equation*}
-      
+      \begin{equation}\label{eq:gradient_ls}
+        \begin{split}
+        \nabla_{\Vt}L(\Vt)&=\frac{1}{m}[\MA^T\MA\Vt-\MA^T\Vy]\\
+        &=\frac{1}{m}\MA^T(\MA\Vt-\Vy)\\
+        &=\boxed{\frac{1}{m}\MA^T(\hat{\Vy}-\Vy)}
+        \end{split}
+      \end{equation}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Ridge回归的梯度}
+      Ridge回归的损失函数是
+      \begin{equation*}
+        L(\Vt)=\frac{1}{m}(\MA\Vt-\Vy)^T(\MA\Vt-Vy)+\lambda\Vt^T\Vt
+      \end{equation*}
+      对$\Vt$求偏导有
+      \begin{equation}
+        \begin{split}
+        \nabla_{\Vt}L(\Vt)&=(\frac{1}{m}\MA^T\MA+\lambda\MI)\Vt-\frac{1}{m}\MA^T\Vy\\
+        &=\boxed{\frac{1}{m}\MA^T(\hat{\Vy}-\Vy)+\color{red}{\lambda\Vt^T\Vt}}
+        \end{split}
+      \end{equation}
+      
+\end{frame}
 \begin{frame}
   \frametitle{梯度下降法常见问题}
   使用梯度下降法容易遇到的问题有
@@ -352,17 +361,36 @@ L(\Vt)=\Ve^T\Ve+\lambda{\color{red}\sum|\theta_i|}
 
 \begin{frame}
   \frametitle{Logistic回归的损失函数}
-  考虑所有$n$个数据点，总损失函数为
+  考虑所有$m$个数据点，总损失函数为
   \begin{equation*}
     \begin{split}
-    L(\Vt)&=\frac{1}{n}\sum_{i=1}^n l_i(\Vt)\\
-    &=-\frac{1}{n}\sum_{i=1}^n[y_i\cdot\log(\hat{y}_i)+(1-y_i)\cdot\log(1-\hat{y_i})]
+    L(\Vt)&=\frac{1}{m}\sum_{i=1}^m l_i(\Vt)\\
+    &=-\frac{1}{m}\sum_{i=1}^m[y_i\cdot\log(\hat{y}_i)+(1-y_i)\cdot\log(1-\hat{y_i})]
     \end{split}
   \end{equation*}
   进一步整理成矩阵形式有
   \begin{equation}\label{eq:logistic_loss}
-    \boxed{-\frac{1}{n}(\Vy^T\cdot\log(\sigma(\MA\Vt))+(1-\Vy)^T\cdot\log(\vec{1}-\sigma(\MA\Vt)))}
+    \boxed{-\frac{1}{m}[\Vy^T\cdot\log(\sigma(\MA\Vt))+(1-\Vy)^T\cdot\log(\vec{1}-\sigma(\MA\Vt))]}
   \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logsitic回归的梯度}
+  对公式\ref{eq:logistic_loss}求偏导，得到Logistic回归的梯度为
+  \begin{equation}
+    \begin{split}
+    \nabla_{\Vt}L(\Vt)&=\frac{1}{m}\MA^T(\sigma(\MA\Vt)-\Vy)\\
+    &=\frac{1}{m}\MA^T(\hat{\Vy}-\Vy)
+    \end{split}
+  \end{equation}
+  与线性回归的梯度公式\ref{eq:gradient_ls}比较，两者形式\emph{高度相似}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{练习}
+  梯度下降法进行二个属性数据的分类，画出属性空间图。注意边界
+  
 
 \end{frame}
 \begin{frame}
