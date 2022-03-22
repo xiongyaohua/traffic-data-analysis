@@ -291,11 +291,80 @@ L(\Vt)=\Ve^T\Ve+\lambda{\color{red}\sum|\theta_i|}
 \end{frame}
 \begin{frame}
   \frametitle{Logistic回归}
+  用以下复合函数拟合$\Vx$，$\Vy$
+  \begin{equation}
+    \sigma(\MA\Vt)
+  \end{equation}
+  其中，$\Vy$矢量中的元素只能取$\{0,1\}$，分别表示两种\emph{可能的类别}；$\MA=\begin{bmatrix}
+    \Vx & \vec{1}
+  \end{bmatrix}$
 
-  <title>
+  通过选取最佳的参数$\Vt^*$使\emph{预测值}$\hat{\Vy}=\sigma(\MA\Vt^*)$与\emph{观测值}$\Vy$\emph{最接近}。如何定义“接近”？
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic函数的导数}
+  梯度下降法求解时需要Logistic函数的导数。Logistic函数的导数具有\emph{特别形式}
+  \begin{equation}
+    \sigma'(t)=\sigma(t)(1-\sigma(t))
+  \end{equation}
+  请验证？
+  
+  提示：用求导规则
+  $$\left(\frac{1}{u}\right)'=\frac{u'}{u^2}$$
+\end{frame}
+\begin{frame}
+  \frametitle{如何比较概率？}
+  线性回归中将接近定义为\emph{残差的平方和}，这个定义不适合Logistic回归。因为Logistic回归中的$\Vy$表示\emph{概率}，而概率的接近程度并不是线性的。
+  
+  考虑以下三种情况，交通事故发生的概率为$\{0.01, 0.001, 0.0001\}$。概率数字变化不大，但表示的情况差别很明显，三种情况的安全性各差了一个\emph{数量级}。
+
+  要体现数量级的差距，用概率的\emph{对数函数}更合适。例如$\{\log0.01, \log0.001, \log0.0001\}$三个值之间距离相等。
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic回归的损失函数}
+  基于对概率比较的分析，Logistic回归的函数定义如下。对\emph{某个}数据点$(x_i, y_i)$
+  \begin{equation}\label{eq:logistic_loss_seperated}
+    l_i(\Vt)=\left\{\begin{array}{ll}
+      -\log(\hat{y}_i) & \text{如果}y_i=1\\
+      -\log(1-\hat{y}_i) & \text{如果}y_i=0
+    \end{array}\right.
+  \end{equation}
+  这个定义有以下特点
+  \begin{itemize}
+    \item 当$y_i=1$时数据点属于$1$类，此时如果预测值$\hat{y}_i=1$则完美符合，没有损失
+    \item 当$y_i=0$时数据点属于$0$类，此时如果预测值$\hat{y}_i=0$则完美符合，没有损失
+    \item 损失$l\ge0$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic回归的损失函数}
+  公式\ref{eq:logistic_loss_seperated}是分段函数，使用不便。我们利用一个\emph{小技巧}把它们组合起来
+  \begin{equation}\label{eq:logistic_loss_combined}
+    l_i(\Vt)=-[y_i\cdot\log(\hat{y}_i)+(1-y_i)\cdot\log(1-\hat{y_i})]
+  \end{equation}
+
+  可以证明公式\ref{eq:logistic_loss_combined}和\ref{eq:logistic_loss_seperated}等价（试一下）
 
 \end{frame}
 
+\begin{frame}
+  \frametitle{Logistic回归的损失函数}
+  考虑所有$n$个数据点，总损失函数为
+  \begin{equation*}
+    \begin{split}
+    L(\Vt)&=\frac{1}{n}\sum_{i=1}^n l_i(\Vt)\\
+    &=-\frac{1}{n}\sum_{i=1}^n[y_i\cdot\log(\hat{y}_i)+(1-y_i)\cdot\log(1-\hat{y_i})]
+    \end{split}
+  \end{equation*}
+  进一步整理成矩阵形式有
+  \begin{equation}\label{eq:logistic_loss}
+    \boxed{-\frac{1}{n}(\Vy^T\cdot\log(\sigma(\MA\Vt))+(1-\Vy)^T\cdot\log(\vec{1}-\sigma(\MA\Vt)))}
+  \end{equation}
+
+\end{frame}
 \begin{frame}
   \frametitle{交叉熵}
 
