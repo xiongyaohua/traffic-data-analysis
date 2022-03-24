@@ -29,7 +29,8 @@
 
 \let\emph\relax % there's no \RedeclareTextFontCommand
 \DeclareTextFontCommand{\emph}{\color{red}\em}
-
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
 %%%%%%%%%%%%%%% Section标题页 %%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSection[]{
   \begin{frame}
@@ -44,7 +45,7 @@
 %%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
 
 \title{第3讲：线性回归}
-\subtitle{分析数据从$y=ax+b$开始}
+\subtitle{数据分析从$y=ax+b$开始}
 \author{熊耀华}
 \institute{交通工程系}
 
@@ -204,7 +205,7 @@
         \frametitle{平方和的内积形式}
         平方和可以缩写成向量内积形式
         \begin{align*}
-            \sum_{i=1}^n e_i^2&= e_1e_1+e^2e^2+\cdots\\
+            \sum_{i=1}^n e_i^2&= e_1e_1+e_2e_2+\cdots\\
                     &=\begin{bmatrix}
                         e_1 & e_2 & \cdots
                     \end{bmatrix}\cdot
@@ -248,7 +249,7 @@
             \begin{split}
                 L(\vec{\theta})&=\Ve^T\Ve\\
                 &={(\MA\vec{\theta}-\Vy)}^T(\MA\vec{\theta}-\Vy)\\
-                &=\vec{\theta}^T\MA^T\MA\vec{\theta}+\Vy^T\Vy-\vec{\theta}^T\MA^T-\Vy^T\MA\vec{\theta}
+                &=\vec{\theta}^T\MA^T\MA\vec{\theta}+\Vy^T\Vy-\vec{\theta}^T\MA^T\Vy-\Vy^T\MA\vec{\theta}
             \end{split}
         \end{equation}
         对$\vec{\theta}$取\emph{偏导数}有
