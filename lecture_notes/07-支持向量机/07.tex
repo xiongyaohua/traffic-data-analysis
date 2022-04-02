@@ -1,0 +1,135 @@
+%\documentclass[14pt,aspectratio=169]{beamer}
+\documentclass[14pt]{beamer}
+\usepackage{ctex}
+\usepackage{bm}
+\usepackage{color, colortbl}
+\definecolor{HRed}{rgb}{1,.2,.2}
+%\usepackage{xeCJK} % important! Without this Chinese fonts won't show
+%\usepackage{xeCJKfntef}
+\setsansfont{Noto Sans CJK SC Light}
+\setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
+\setCJKmainfont{Noto Serif CJK SC Light}
+
+\usefonttheme[onlymath]{serif} % formulars in serif font
+\usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
+\parskip=10pt
+
+%\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\MA}{\mat{A}}
+\newcommand{\MI}{\mat{I}}
+\newcommand{\Va}{\Vec{a}}
+\newcommand{\Vy}{\vec{y}}
+\newcommand{\Vx}{\vec{x}}
+\newcommand{\Ve}{\vec{e}}
+\newcommand{\Vw}{\vec{w}}
+\newcommand{\Vt}{\vec{\theta}}
+\newcommand{\SR}{\mathcal{R}}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\color{red}\em}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%% Section标题页 %%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
+
+\title{第7讲：支持向量机}
+\subtitle{带约束的最优化问题}
+\author{熊耀华}
+\institute{交通工程系}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Logistic回归与支持向量机}
+
+  支持向量机（Support Vector Machine）和Logistic回归一样，是常见的分类模型。两者的思路也类似。
+
+  Logistic回归模型分为两步
+  \begin{description}
+    \item[打分] 用一个线性函数将自变量$\Vx$映射成分数$s=\Vw^T\Vx+b$
+    \item[分类] 用Logsitic函数$\sigma$将分数$s$映射成隶属概率$p=\sigma(s)$
+  \end{description}
+
+  支持向量机采用了不同的分类方式
+\end{frame}
+
+\begin{frame}
+  \frametitle{支持向量机的分类方式}
+  支持向量机规定，对于数据$\Vx_i$，分数
+  \[s_i=\Vw^T\Vx+b\]
+  分类直接由分数决定
+  \[t_i=\left\{\begin{array}{rl}
+    1 & \text{当}s_i\ge 1\\
+    -1 & \text{当}s_i\le -1\\
+  \end{array}\right.
+  \]
+  因变量$t_i$的两个取值$\{-1,1\}$分别代表两个类别。
+\end{frame}
+
+\begin{frame}
+  \frametitle{参数$\Vw$的约束条件}
+  对于$m$个数据点构成的训练集
+  $$\{(\Vx_i,t_i):i=1,\ldots,m\}$$
+  为保证模型与数据吻合，参数$\Vw$必须满足以下\emph{约束}
+  \begin{equation}\left.
+    \begin{array}{ll}
+    \Vw^T\Vx_i+b\ge1 & \text{当}t_i=1\\
+    \Vw^T\Vx_i+b\le-1 & \text{当}t_i=-1
+    \end{array}\right\}\quad\text{对所有$i$成立}
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{约束条件的缩写}
+  参数$\Vw$约束条件的两种情况可以缩写成一个公式
+  \begin{equation}
+    t_i(\Vw^T\Vx_i+b)\ge1\quad\text{对所有$i$成立}
+  \end{equation}
+
+  注意：这个缩写成立的关键在于两个类别用$\{-1,1\}$表示；
+  如果用$\{0,1\}$则不成立。
+\end{frame}
+
+\begin{frame}
+  \frametitle{最优参数}
+  满足上述约束条件的参数$\Vw$很可能有多个，需要选出\emph{最优}的一个。SVM的最优标准是$\|\Vw\|$最小，得到带约束的最优化问题
+  \begin{equation}
+    \begin{aligned}
+    &\min_{\Vw,b} \|\Vw\|\\
+    \text{满足}&\\
+    &t_i(\Vw^T\Vx_i+b)\ge1\quad\text{$i=1,\ldots,m$}
+  \end{aligned}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+  \frametitle{$\Vw$最小的意义}
+  给定具体参数$\Vw,b$后，SVM模型把数据空间$\Vx$分成三个部分
+  \begin{description}
+    \item[第一类] $\Vw^T\Vx+b\ge1$ 
+    \item[第二类] $\Vw^T\Vx+b\le-1$ 
+    \item[\emph{边界区}] $-1<\Vw^T\Vx+b<1$ 
+  \end{description}
+
+  边界区的宽度由$\|\Vw\|$控制，$\|\Vw\|$越小边界区越宽。
+\end{frame}
+\end{document}
