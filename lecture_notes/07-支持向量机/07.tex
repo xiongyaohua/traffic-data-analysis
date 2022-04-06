@@ -132,4 +132,56 @@
 
   边界区的宽度由$\|\Vw\|$控制，$\|\Vw\|$越小边界区越宽。
 \end{frame}
+
+\begin{frame}
+  \frametitle{线性不可分}
+  支持向量机试图用一条直线将两类数据点分开，但是数据点的某些排布方式线性
+  不可分（举例）。
+
+  此时有两个解决思路：
+  \begin{description}
+    \item[软边界] 取消约束条件，代之以目标函数中的\emph{损失项}。允许少量的
+    数据点处于边界的另一侧。
+    \item[核方法] 用核函数（kernel function）将数据点\emph{映射}到高维空间，
+    再进行分类。 
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{软边界的损失项}
+  对某个数据$(\Vx_i, t_i)$，损失项可以定义为
+  \begin{equation}
+    l_i(\Vw, b)=\max(0, 1-t_i(\Vw^T\Vx_i+b))
+  \end{equation}
+  约束满足时$t_i(\Vw^T\Vx_i+b)\ge1$，此时$l_i=0$；
+  不满足时$t_i(\Vw^T\Vx_i+b)<1$，此时$l_i=1-t_i(\Vw^T\Vx_i+b)>0$
+
+  损失项可以对不满足约束的情况进行\emph{惩罚}
+\end{frame}
+
+\begin{frame}
+  \frametitle{软边界的损失函数}
+  基于以上分析，软边界问题需要优化以下损失函数
+  \begin{equation}
+    L(\Vw,b)=\|\Vw\|^2+\lambda\sum_{i=1}^{m}\max(0, 1-t_i(\Vw^T\Vx_i+b))
+  \end{equation}
+  此时约束条件直接整合进目标函数，因此是\emph{无约束}优化问题 
+\end{frame}
+
+\begin{frame}
+  \frametitle{映射函数}
+  数据点集$\{(\Vx_i, t_i):i=1,\ldots,m\}$如果线性不可分，可以映射到高维
+  空间
+  $$\{(f(\Vx_i), t_i):i=1,\ldots,m\}$$
+  新集合可能线性可分。例如
+  $$f:x\to(x, x^2)$$
+  此时\emph{原空间}中的分类边界不再是直线。
+\end{frame}
+
+\begin{frame}
+  \frametitle{核函数}
+TODO
+  
+
+\end{frame}
 \end{document}
