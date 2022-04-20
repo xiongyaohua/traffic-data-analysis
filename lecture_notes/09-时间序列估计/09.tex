@@ -1,0 +1,131 @@
+%\documentclass[14pt,aspectratio=169]{beamer}
+\documentclass[14pt]{beamer}
+\usepackage{ctex}
+\usepackage{bm}
+\usepackage{color, colortbl}
+\definecolor{HRed}{rgb}{1,.2,.2}
+%\usepackage{xeCJK} % important! Without this Chinese fonts won't show
+%\usepackage{xeCJKfntef}
+\setsansfont{Noto Sans CJK SC Light}
+\setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
+\setCJKmainfont{Noto Serif CJK SC Light}
+
+\usefonttheme[onlymath]{serif} % formulars in serif font
+\usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
+\parskip=10pt
+
+%\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\MA}{\mat{A}}
+\newcommand{\MI}{\mat{I}}
+\newcommand{\Va}{\Vec{a}}
+\newcommand{\Vy}{\vec{y}}
+\newcommand{\Vx}{\vec{x}}
+\newcommand{\Ve}{\vec{e}}
+\newcommand{\Vw}{\vec{w}}
+\newcommand{\Vt}{\vec{\theta}}
+\newcommand{\SR}{\mathcal{R}}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\color{red}\em}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%% Section标题页 %%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
+
+\title{第9讲：时间序列估计}
+\subtitle{动态系统建模}
+\author{熊耀华}
+\institute{交通工程系}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{系统模型}
+  \begin{description}
+    \item[系统] 由互相作用的要素构成的总体。万事万物都是系统。
+    \item[系统状态] 系统某一时刻的状况，可以由一组数字$\Vt$表示。
+    \item[黑盒子] 系统的\emph{内部}状态、工作机制不可见。
+    \item[观测值] 对\emph{外部}对系统进行测试，输入$\Vx_i$，测量对应输出$\Vy_i$。
+    \item[状态估计] 根据可知的观测值$\{(\Vx_i,\Vy_i):i\in I\}$\emph{间接}估计系统状态$\Vt$
+  \end{description}
+  
+  数据建模本质就是建立系统模型，估计系统状态。
+\end{frame}
+
+\begin{frame}
+  \frametitle{静态系统和动态系统}
+
+  \begin{description}
+    \item[静态系统] 系统状态随时间\emph{不变}
+    \item[动态系统] 系统状态随时间\emph{变化}
+  \end{description}
+
+  之前的数据模型，如线性回归、SVM等都静态系统模型。例如线性回归模型$y=ax+b$中，系统状态$a$、$b$
+  与时间无关。
+\end{frame}
+
+\begin{frame}
+  \frametitle{静态系统的贝叶斯估计}
+  上一讲总的贝叶斯估计针对静态系统，写作
+  \begin{equation}
+    \begin{split}
+      P(\Vt|\{(\Vx_i,\Vy_i):i\in I\})&\propto P(\{(\Vx_i,\Vy_i)|i\in I\}|\Vt)\cdot P(\Vt)\\
+      &\propto \prod_{i\in I} P((\Vx_i,\Vy_i)|\Vt)\cdot P(\Vt)
+    \end{split}
+  \end{equation}
+  或者说系统状态的后验概率分布等于各观测数据似然概率的\emph{连乘}。
+\end{frame}
+
+\begin{frame}
+  \frametitle{动态系统的贝叶斯估计}
+  \begin{itemize}
+    \item 动态系统中所有观测值$\{(\Vx_i,\Vy_i):i\in I\}$称为\emph{时间序列}。
+    \item 此时数据点$(\Vx_i,\Vy_i)$来自与\emph{第$i$个时段}的观察。
+    \item 系统状态$\Vt$随时间变化，因此也是一个时间序列$\{\Vt_i:i\in I\}$
+  \end{itemize}
+
+  因为数据来自不同时段，简单的将数据的似然概率连乘起来没有意义。
+\end{frame}
+
+\begin{frame}
+  \frametitle{估计$i$时段状态$\Vt_i$}
+  将注意力集中到某一个时段$i$，该时段的状态$\Vt_i$有两个信息来源
+  \begin{itemize}
+    \item 第$i$时段的\emph{观测}
+    \item 根据前一时段状态对本时段状态的\emph{预测}
+  \end{itemize}
+  将两者融合，可以用观测对预测进行\emph{修正}，更可靠的估计当前状态。
+\end{frame}
+
+\begin{frame}
+  \frametitle{例1:车辆定位}
+  \begin{itemize}
+    \item 假设一条道路离散为$10$个单元。
+    \item 某车辆初始状态下位于某个单元内，每个时段向右移动一个单元。
+    \item 我们通过某种设备观测车辆位置，每个时段观测一次，读数分别为${3,4,5,5,6}$。
+    \item 观测设别存在误差，读数为$i$时，车辆的实际位置和概率分别为
+    $$\{i-1:0.2,i:0.6,i+1:0.2\}$$
+  \end{itemize}
+
+  车辆各个时段的实际位置在哪里，概率为多少？
+\end{frame}
+\end{document}
