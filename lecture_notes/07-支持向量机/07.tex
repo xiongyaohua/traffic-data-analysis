@@ -163,7 +163,7 @@
   \frametitle{软边界的损失函数}
   基于以上分析，软边界问题需要优化以下损失函数
   \begin{equation}
-    L(\Vw,b)=\|\Vw\|^2+\lambda\sum_{i=1}^{m}\max(0, 1-t_i(\Vw^T\Vx_i+b))
+    L(\Vw,b)=\frac{1}{2}\|\Vw\|^2+\lambda\sum_{i=1}^{m}\max(0, 1-t_i(\Vw^T\Vx_i+b))
   \end{equation}
   此时约束条件直接整合进目标函数，因此是\emph{无约束}优化问题 
 \end{frame}
@@ -172,16 +172,43 @@
   \frametitle{映射函数}
   数据点集$\{(\Vx_i, t_i):i=1,\ldots,m\}$如果线性不可分，可以映射到高维
   空间
-  $$\{(f(\Vx_i), t_i):i=1,\ldots,m\}$$
+  $$\{(\phi(\Vx_i), t_i):i=1,\ldots,m\}$$
   新集合可能线性可分。例如
-  $$f:x\to(x, x^2)$$
+  $$\phi:x\to(x, x^2)$$
   此时\emph{原空间}中的分类边界不再是直线。
 \end{frame}
 
 \begin{frame}
-  \frametitle{核函数}
-TODO
-  
+  \frametitle{优化问题的求解}
+  对支持向量机的最优化问题可以直接求解，也可以转化为\emph{对偶问题}再求解。
 
+  为约束引入拉格朗日变量$\lambda_i$，目标函数变为
+  \begin{equation}
+    L(\Vw,b,\vec{\lambda})=\frac{1}{2}\Vw^T\Vw+\sum_{i=1}^{m}\lambda_i[1-t_i(\Vw^T\Vx_i+b)]
+  \end{equation}
+  通过变量替换，得到对偶问题
+\end{frame}
+
+\begin{frame}
+  \frametitle{对偶问题}
+  \begin{equation}
+    \begin{aligned}
+    &\max_{\vec{\lambda}} \left(\sum_{i=1}^{m}\lambda_i-
+    \frac{1}{2}\sum_i\sum_j\lambda_i\lambda_jt_it_j\Vx_i^T\Vx_j\right)\\
+    \text{满足}&\\
+    &\sum_{i=1}^{m}\lambda_it_i=0,\\
+    &\lambda_i\ge0
+  \end{aligned}
+\end{equation}
+  注意，此时$\vec{\lambda}$是自变量。
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{核函数}
+  \[
+  \max_{\vec{\lambda}} \left(\sum_{i=1}^{m}\lambda_i-
+    \frac{1}{2}\sum_i\sum_j\lambda_i\lambda_jt_it_j{\color{red}\phi(\Vx_i)^T\phi(\Vx_j)}\right)
+  \]
 \end{frame}
 \end{document}

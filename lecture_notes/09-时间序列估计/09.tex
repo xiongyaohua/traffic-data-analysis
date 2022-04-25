@@ -128,4 +128,28 @@
 
   车辆各个时段的实际位置在哪里，概率为多少？
 \end{frame}
+
+\begin{frame}
+  \frametitle{预测+修正=滤波}
+  从例1总结，利用时间序列数据预测动态系统状态的流程如下：
+  \begin{enumerate}
+    \item 初始化，利用$(\Vx_1,\Vy_1)$估计$\Vt_1$。令$i:=2$
+    \item 预测，基于$\Vt_{i-1}$预测$\hat{\Vt}_i$。（卷积）
+    \item 修正，利用$(\Vx_i,\Vy_i)$修正$\hat{\Vt}_i$，得到$\Vt_i$(贝叶斯)
+    \item $i:=i+1$；如果$i>N$，结束；否则回到第2步。
+  \end{enumerate}
+
+  因为这个算法最早广泛应用于信号处理领域，因此称为\emph{滤波算法}。
+\end{frame}
+
+\begin{frame}
+  \frametitle{例2：机器人定位}
+  \begin{itemize}
+    \item 某机器人装备有激光测距设备，可测量正前方障碍物距离, 测量有显著误差。
+    \item 处于一个房间中，房间几何形状已知
+    \item 装备步进电机，可向任意方向前进任意距离，步进电机有显著误差
+    \item 有电子罗盘，可测量绝对方位角（非必须条件）
+  \end{itemize}
+  设计算法，获取机器人在房间中的具体位置
+\end{frame}
 \end{document}
