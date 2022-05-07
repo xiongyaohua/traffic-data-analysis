@@ -1,50 +1,6 @@
 %\documentclass[14pt,aspectratio=169]{beamer}
 \documentclass[14pt]{beamer}
-\usepackage{ctex}
-\usepackage{bm}
-\usepackage{color, colortbl}
-\definecolor{HRed}{rgb}{1,.2,.2}
-%\usepackage{xeCJK} % important! Without this Chinese fonts won't show
-%\usepackage{xeCJKfntef}
-\setsansfont{Noto Sans CJK SC Light}
-\setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
-\setCJKmainfont{Noto Serif CJK SC Light}
-
-\usefonttheme[onlymath]{serif} % formulars in serif font
-\usefonttheme{professionalfonts} % 防止公式间距异常，参见https://www.zhihu.com/question/55492768
-\parskip=10pt
-
-%\newcommand{\mat}[1]{\bm{#1}}
-\newcommand{\mat}[1]{\bm{#1}}
-\renewcommand{\vec}[1]{\bm{#1}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-\newcommand{\MA}{\mat{A}}
-\newcommand{\MI}{\mat{I}}
-\newcommand{\Va}{\Vec{a}}
-\newcommand{\Vy}{\vec{y}}
-\newcommand{\Vx}{\vec{x}}
-\newcommand{\Ve}{\vec{e}}
-\newcommand{\Vt}{\vec{\theta}}
-\newcommand{\SR}{\mathcal{R}}
-
-\let\emph\relax % there's no \RedeclareTextFontCommand
-\DeclareTextFontCommand{\emph}{\color{red}\em}
-\setbeamertemplate{headline}{}
-\setbeamertemplate{navigation symbols}{}
-
-%%%%%%%%%%%%%%% Section标题页 %%%%%%%%%%%%%%%%%%%%%%%
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
-}
-%%%%%%%%%%%%%%% 正文开始 %%%%%%%%%%%%%%%%%%%%%%%
+\input{../preamble.tex}
 
 \title{第6讲：Logistic回归}
 \subtitle{线性回归的数值解}
