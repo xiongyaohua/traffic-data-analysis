@@ -1,0 +1,105 @@
+%\documentclass[14pt,aspectratio=169]{beamer}
+\documentclass[14pt]{beamer}
+\input{../preamble.tex}
+
+\title{第1讲：仿真系统和系统仿真}
+\subtitle{什么是仿真}
+\author{熊耀华}
+\institute{交通工程系}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{系统和系统仿真}
+    \begin{description}
+        \item[系统] 由部分组成的整体，功能上大于部分
+        \begin{itemize}
+            \item 交通系统
+            \item 消化系统
+            \item 宇宙
+            \item 万事万物都是系统
+        \end{itemize}
+        \item[系统仿真] 用一个系统模拟另一个系统
+        \begin{itemize}
+            \item 简单系统模拟复杂系统（模型）
+            \item 复杂系统模拟简单系统（模拟器）
+            \item 模拟外表（建筑沙盘）
+            \item 模拟机制（数学建模）
+        \end{itemize}
+    \end{description}
+\end{frame}
+
+\begin{frame}
+    \frametitle{仿真系统}
+    \begin{description}
+        \item[仿真系统] 用于模拟其他系统的计算机软件
+        \begin{itemize}
+            \item 软件也是系统，由模块构成
+            \item 仿真系统的模块对应于目标系统的部分
+            \item 交通仿真系统模拟交通系统
+        \end{itemize}
+    \end{description}
+    软件不能完美模拟现实，必须选择某些方面做简化。不同的选择带来不同的
+    仿真系统。
+\end{frame}
+
+\begin{frame}
+    \frametitle{仿真系统的核心问题}
+    如何描述时间和空间？
+    \begin{itemize}
+        \item 现实世界时间、空间\emph{连续}且\emph{无穷}。（不一定，量子力学）
+        \item 计算机的状态\emph{离散}且\emph{有限}
+        \item 如何用有限的计算机状态表示无穷的时空状态是仿真系统设计的核心问题
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{仿真系统的总体架构}
+    \begin{enumerate}
+        \item 系统初始化。时间变量$t:=0$，系统状态$s:=s_0$
+        \item 仿真系统推进。时间变量$t:=t+\Delta t$，系统状态
+        根据规则演化$s:=f(s,t,\Delta t，H)$
+        \item 仿真是否结束？否，回到1；是，结束
+    \end{enumerate}
+
+    其中2，3两步推动仿真系统演化，称为\emph{主循环}。函数$f$包含系统演化规则，其中
+    $H$表示系统状态的\emph{历史记录}。$t$被形象的称为\emph{仿真时钟}。
+\end{frame}
+
+\begin{frame}
+    \frametitle{时间表示}
+    主循环将连续的\emph{时间轴}看作离散的\emph{瞬间}。
+
+    仿真世界中的时间$t$有两种基本的推进方式
+    \begin{itemize}
+        \item 固定步长：$\Delta t$固定
+        \item 离散事件：$\Delta t$可变，推进到下一个\emph{事件}发生
+    \end{itemize}
+    两种方式可以杂交
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{空间表示}
+    \emph{空间}和空间中的\emph{介质}可以表示为
+    \begin{description}
+        \item[拉格朗日] 连续空间，离散介质（Agent仿真）
+        \item[欧拉] 离散空间，连续介质（CTM）
+        \item[元胞自动机] 离散空间，离散介质（NS模型）
+        \item[偏微分方程] 连续空间，连续介质（交通波方程）
+    \end{description}
+    各种方式可以杂交
+\end{frame}
+
+\begin{frame}
+    \frametitle{案例}
+    \begin{enumerate}
+        \item 排队模型离散事件仿真
+    \end{enumerate}
+\end{frame}
+
+\end{document}
