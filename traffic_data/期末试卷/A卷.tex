@@ -1,28 +1,264 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
+
 \usepackage{ctex}
-\usepackage{graphicx}
-\graphicspath{ {./images/} }
 \setsansfont{Noto Sans CJK SC Light}
 \setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
 \setCJKmainfont{Noto Serif CJK SC Light}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\cfoot{第{\thepage}页，共\pageref{LastPage}页}
+\pagestyle{fancy}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=40mm,
+ top=20mm,
+ right=20mm,
+ }
+\usepackage{titlesec}
+\renewcommand\thesection{\chinese{section}}
+\titleformat{\section}
+  {\normalfont\large\bfseries}{\thesection.}{1em}{}
+  
+\DeclareEmphSequence{\bfseries,\itshape,\upshape}
+
+\newif\ifsolution
+
+%%% 是否显示答案
+\solutiontrue
+%\solutionfalse
+
+\newcounter{question}
+\newenvironment{choice}[2][X]
+    {\refstepcounter{question}
+        \textbf{\thequestion.} #2
+        \hfill\mbox{[\ifsolution{#1}\else\quad\fi]}
+        \begin{multicols}{2}
+        \begin{enumerate}[label=(\Alph*)]
+    }
+    {
+        \end{enumerate}
+        \end{multicols}
+    }
+\newenvironment{question}[1][XXX]
+    {\refstepcounter{question}
+        \textbf{\thequestion.}\def\thesolution{#1}
+    }
+    {}
+\usepackage{comment}
+\ifsolution
+    \newenvironment{solution}[1][8cm]{答案：}{}
+\else
+    \usepackage{environ}
+    \NewEnviron{hide}{}
+    \newenvironment{solution}[1][8cm]{答案：\vspace{#1}\hide}
+    {\endhide}
+\fi
+
+
+\makeatletter
+\renewcommand\maketitle{
+\begin{center}
+{\LARGE \bfseries \@title}\\[2ex]
+\end{center}
+}
+\makeatother
 
 \title{西南交通大学2021--2022学年第(II)学期考试试卷A}
 
+\usepackage{eso-pic}
+\usepackage{dashrule}
+\newcommand\BackgroundPicture{
+   \put(0,0){\rotatebox{90}{
+     \parbox[b][3.5cm]{\paperheight}{
+        \vspace{1cm}
+        \hfil \textbf{班级}：\underline{\hspace{5cm}}%
+        \hfil \textbf{学号}：\underline{\hspace{5cm}}%
+        \hfil \textbf{姓名}：\underline{\hspace{5cm}}\hfil
+        \vfill
+        {\tiny \hfil 密封装订线\hfil 密封装订线\hfil 密封装订线}
+        
+        \hdashrule[0.5ex][c]{\linewidth}{0.6pt}{1.5mm}
+    }}}}
+\AddToShipoutPicture*{\BackgroundPicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \maketitle
-课程代码：\underline{0573046}%
-\hfil 课程名称：\underline{交通数据分析}%
-\hfil 考试时间：\underline{120分钟}
+课程代码：\underline{TRAL008012}%
+\hfill 课程名称：\underline{交通数据分析}%
+\hfill 考试时间：\underline{120分钟}
 
-\begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+\begin{center}
+\begin{tabular}{|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|}
     \hline
-    题号 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
     \hline
     & & & & & & & & &  \\
     \hline
-    题号 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+    11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20\\
+    \hline
+    & & & & & & & & &  \\
+    \hline
+    21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30\\
     \hline
     & & & & & & & & &  \\
     \hline
 \end{tabular}
+\end{center}
+\vspace{2ex}
+\hfil 阅卷教师签字：\underline{\hspace{8cm}} \hfil
+
+\section{选择题\textmd{(20小题，每小题3分，共60分)}}
+
+\begin{choice}[B]{交通领域可使用多种形式的原始数据，以下常见数据形式中包含\emph{信息最丰富}的是
+    哪一个}
+    \item 感应线圈检测器
+    \item 车辆GPS轨迹数据
+    \item 交叉口车牌识别数据
+    \item OD调查数据
+\end{choice}
+
+\begin{choice}[C]{综合考虑成本和效率，\emph{最适合}搜集中等以上规模城市整体交通状况的数据采集手段是}
+    \item 出租车GPS定位
+    \item 交叉口车牌识别
+    \item 手机基站定位
+    \item 问卷调查
+\end{choice}
+
+\begin{choice}[A]{从数据中寻找两个\emph{连续变量}之间函数关系的模型称为}
+    \item 回归模型
+    \item 分类模型
+    \item 聚类模型
+    \item 滤波模型
+\end{choice}
+
+\begin{choice}[A]{对于\emph{线性回归}模型$y=w\cdot x+b$，损失函数$L$的定义是}
+    \item $L=\sum |y-w\cdot x-b|$
+    \item $L=\sum (y-w\cdot x-b)$
+    \item $L=\sum (y-w\cdot x-b)^2$
+    \item $L=\sum (y-w\cdot x-b)^3$
+\end{choice}
+
+\begin{choice}[D]{机器学习模型参数\emph{过拟合}现象是指模型损失函数}
+    \item 在训练集上大，在测试集上小
+    \item 在训练集上大，在测试集上大
+    \item 在训练集上小，在测试集上小
+    \item 在训练集上小，在测试集上大
+\end{choice}
+
+\begin{choice}[C]{线性回归\emph{正则化}的目的是}
+    \item 减少参数数量
+    \item 增加参数数量
+    \item 缩小参数取值范围
+    \item 扩大参数取值范围
+\end{choice}
+
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 顺序抽取前5000个数据点
+    \item 顺序抽取后5000个数据点
+    \item 抽取自变量取值最小的5000个数据点
+\end{choice}
+
+\begin{choice}[A]{Logistic回归中用到的映射函数是}
+    \item $\sigma(x)=\frac{e^x}{1+e^x}$
+    \item $\sigma(x)=\frac{1}{1+e^x}$
+    \item $\sigma(x)=\frac{e^x+1}{e^x}$
+    \item $\sigma(x)=\frac{e^x+1}{1}$
+\end{choice}
+
+\begin{choice}[D]{Logistic回归的损失函数称为}
+    \item 均方差函数
+    \item 0-1损失函数
+    \item 铰链损失函数
+    \item 交叉熵损失函数
+\end{choice}
+
+\begin{choice}[B]{支持向量机模型中\emph{支持向量}是指}
+    \item 满足$y_i(w\cdot x_i+b)> 1$的数据点
+    \item 满足$y_i(w\cdot x_i+b)= 1$的数据点
+    \item 满足$y_i(w\cdot x_i+b)= 0$的数据点
+    \item 满足$y_i(w\cdot x_i+b)> 0$的数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
+    \item 随机抽取5000个数据点
+    \item 抽取前5000个数据点
+    \item 抽取后5000个数据点
+    \item 抽取取值最小的5000个数据点
+\end{choice}
+\section{判断题}
+
+\section{简答题}
+\begin{question}
+    请解释贝叶斯公式中\emph{四个组成部分}的名称和含义
+    \[P(H|D)=\frac{P(H)\cdot P(D|H)}{P(D)}\]
+\end{question}
+\begin{solution}
+    测试一下答案
+    \[\int sin(x)dx\]
+\end{solution}
+\section{论述题}
+\section{计算题}
 \end{document}

@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{ctex}
+\setsansfont{Noto Sans CJK SC Light}
+\setCJKsansfont[ItalicFont=Kaiti SC]{Noto Sans CJK SC Light}
+\setCJKmainfont{Noto Serif CJK SC Light}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ right=20mm,
+ }
+\DeclareEmphSequence{\bfseries,\itshape,\upshape}
+\makeatletter
+\renewcommand\maketitle{
+\begin{center}
+{\LARGE \bfseries \@title}\\[2ex]
+\end{center}
+}
+\makeatother
+
+\title{《交通仿真》课堂练习}
+\begin{document}
+\maketitle
+
+\section{检查站仿真}
+
+某检查站坐落在某工业园区入口，仅有\emph{一条}检查通道。该入口每天车辆到达率随时间变化，
+早上8:00--9:00是高峰期，车辆到达较快，之后减慢；\emph{平均到达率}如下表所示：
+\begin{table}[htbp]
+    \begin{center}
+    \begin{tabular}{ c c c }
+        时间段 & 平均到达率 \\
+        \hline
+        8:00--9:00 & 10辆/小时 \\
+        9:00--12:00 & 3辆/小时 \\
+    \end{tabular}
+    \end{center}
+    \caption{车辆平均到达率}
+\end{table}
+
+\noindent 同时假设车辆到达符合\emph{柏松过程}。车辆\emph{检测时间}固定为12分钟，
+完成检查之后才能离开。
+
+对该场景进行离散事件仿真，并\emph{绘制}累计到达、离开曲线图。根据该图\emph{回答}下列问题
+\begin{enumerate}
+    \item 仿真时段8:00--12:00内同时最多有几辆车排队？
+    \item 到12:00时队列是否会消散？
+    \item 排队车辆的最大排队等待时间是多少？
+    \item 平均每辆车的排队等待时间时多少？
+\end{enumerate}
+
+\emph{提示}：
+\begin{itemize}
+    \item 符合柏松过程的车流，车头时距符合负指数分布
+    \item 负指数分布样本可用公式$y=f^{-1}(x)$生成。其中$f$是负指数分布的\emph{累积分布函数}，
+    $x$是$[0,1]$上均匀分布样本，$y$是负指数分布样本
+    \item 本练习中使用的$[0,1]$均匀分布样本如下
+    \begin{equation*}
+        \begin{split}
+    [0.59, 0.94, 0.97, 0.59, 0.24, 0.5 , 0.89, 0.16, 0.78, 0.98, \\
+    0.42, 0.03, 0.35, 0.28, 0.29, 0.55, 0.81, 0.78, 0.87, 0.1 ]
+        \end{split}
+    \end{equation*}
+\end{itemize}
+\end{document}
