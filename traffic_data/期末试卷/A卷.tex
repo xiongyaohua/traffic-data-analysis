@@ -32,8 +32,8 @@
 \newif\ifsolution
 
 %%% 是否显示答案
-\solutiontrue
-%\solutionfalse
+%\solutiontrue
+\solutionfalse
 
 \newcounter{question}
 \newenvironment{choice}[2][X]
@@ -54,11 +54,11 @@
     {}
 \usepackage{comment}
 \ifsolution
-    \newenvironment{solution}[1][8cm]{答案：}{}
+    \newenvironment{solution}[1][10cm]{答案：}{}
 \else
     \usepackage{environ}
     \NewEnviron{hide}{}
-    \newenvironment{solution}[1][8cm]{答案：\vspace{#1}\hide}
+    \newenvironment{solution}[1][10cm]{答案：\vspace{#1}\hide}
     {\endhide}
 \fi
 
@@ -188,77 +188,105 @@
     \item 满足$y_i(w\cdot x_i+b)= 0$的数据点
     \item 满足$y_i(w\cdot x_i+b)> 0$的数据点
 \end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\begin{choice}[A]{某数据集包含10000个数据点，从中抽取5000个数据点作为训练集的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 抽取前5000个数据点
-    \item 抽取后5000个数据点
-    \item 抽取取值最小的5000个数据点
-\end{choice}
-\section{判断题}
 
-\section{简答题}
+\begin{choice}[D]{以下聚类方法中\emph{不需要}直接指定类别数量的是}
+    \item K-平均聚类
+    \item K-Medoids聚类
+    \item 高斯混合聚类
+    \item DBSCAN聚类
+\end{choice}
+
+\begin{choice}[A]{高斯混合模型公式如下
+    \[f_M(x)=\sum_{i=1}^k\alpha_i\cdot
+    \frac{1}{2\pi\sqrt{|\Sigma|}}e^{-\frac{1}{2}
+    (y-\mu)^T\Sigma^{-1}(y-\mu)}\]
+    其中混合系数是
+    }
+    \item $\alpha_i$
+    \item $\Sigma$
+    \item $y$
+    \item $\mu$
+\end{choice}
+
+\begin{choice}[B]{神经网络的\emph{深度}是指}
+    \item 神经元总数
+    \item 层数
+    \item 输入属性数量
+    \item 输出属性数量
+\end{choice}
+
+\begin{choice}[D]{单层神经网络的局限性表现在\emph{不能拟合}}
+    \item 与门AND
+    \item 或门OR
+    \item 非门NOT
+    \item 异或门XOR
+\end{choice}
+
+\begin{choice}[B]{当前图像处理中最常用的神经网络形式是}
+    \item 分层神经网络
+    \item 卷积神经网络
+    \item 循环神经网络
+    \item LSTM
+\end{choice}
+
+\begin{choice}[A]{神经网络常用激活函数形式中\emph{不连续}的是}
+    \item ReLU
+    \item Sigmoid
+    \item Tanh
+    \item Softmax
+\end{choice}
+
+\begin{choice}[C]{应用贝叶斯公式时\emph{主要问题}在于构造}
+    \item 先验概率
+    \item 后验概率
+    \item 似然概率
+    \item 数据全概率
+\end{choice}
+
+\begin{choice}[B]{Kalman滤波模型中描述观测值$z$与系统状态值$x$之间关系的矩阵$H$称为}
+    \item 系统状态转移矩阵
+    \item 观测矩阵
+    \item 协方差矩阵
+    \item 正交矩阵
+\end{choice}
+
+\begin{choice}[A]{以下滤波模型中通用性最强的是}
+    \item 贝叶斯滤波
+    \item G-H滤波
+    \item Kalman滤波
+    \item 粒子滤波
+\end{choice}
+
+\begin{choice}[D]{用于矩阵运算的Python模块是}
+    \item matplotlib
+    \item pandas
+    \item scikit
+    \item numpy
+\end{choice}
+
+\newpage
+\section{简答题\textmd{(2小题，每题5分，共10分)}}
+
 \begin{question}
-    请解释贝叶斯公式中\emph{四个组成部分}的名称和含义
-    \[P(H|D)=\frac{P(H)\cdot P(D|H)}{P(D)}\]
+    从几何角度推导最小二乘法公式
+    \[A^T\cdot A\hat{\theta}=A^T\cdot y\]
 \end{question}
 \begin{solution}
     测试一下答案
     \[\int sin(x)dx\]
 \end{solution}
-\section{论述题}
-\section{计算题}
+
+\begin{question}
+    比较支持向量机的软边界、核方法两种变形，说明两者的实现原理和适用范围方面的异同。
+\end{question}
+
+\begin{solution}
+    测试一下答案
+    \[\int sin(x)dx\]
+\end{solution}
+
+\section{计算题\textmd{(2小题，每题15分，共30分)}}
+\begin{question}
+    
+\end{question}
 \end{document}
