@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{mybook}[2023/01/02 LaTeX class for my lecture notes]
+
+%% 参考代码，来自 https://www.overleaf.com/learn/latex/Writing_your_own_class
+%\newcommand{\headlinecolor}{\normalcolor}
+%\RequirePackage{xcolor}
+%\definecolor{slcolor}{HTML}{882B21}
+%
+%\DeclareOption{onecolumn}{\OptionNotUsed}
+%\DeclareOption{green}{\renewcommand{\headlinecolor}{\color{green}}}
+%\DeclareOption{red}{\renewcommand{\headlinecolor}{\color{slcolor}}}
+%\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+%\ProcessOptions\relax
+%\LoadClass[twocolumn]{article}
+%
+%\renewcommand{\maketitle}{%
+%    \twocolumn[%
+%        \fontsize{50}{60}\fontfamily{phv}\fontseries{b}%
+%        \fontshape{sl}\selectfont\headlinecolor
+%        \@title
+%        \medskip
+%        ]%
+%}
+%
+%\renewcommand{\section}{%
+%    \@startsection
+%    {section}{1}{0pt}{-1.5ex plus -1ex minus -.2ex}%
+%    {1ex plus .2ex}{\large\sffamily\slshape\headlinecolor}%
+%}
+%
+%\renewcommand{\normalsize}{\fontsize{9}{10}\selectfont}
+%\setlength{\textwidth}{17.5cm}
+%\setlength{\textheight}{22cm}
+%%\setcounter{secnumdepth}{0}
+
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\LoadClass[fontset=none,twoside,punct=kaiming,12pt]{ctexrep}
+\pagestyle{headings}
+\setCJKsansfont[Scale=0.96]{Noto Sans CJK SC}
+\setCJKmainfont[Scale=0.96]{Noto Serif CJK SC}
+\RequirePackage{marginnote}
+\RequirePackage{sidenotes}
+\renewcommand*{\marginfont}{\scriptsize}
