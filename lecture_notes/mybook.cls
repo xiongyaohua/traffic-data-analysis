@@ -38,7 +38,9 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 \LoadClass[fontset=none,twoside,punct=kaiming,12pt]{ctexrep}
-\pagestyle{headings}
+
+%% 页面布局定制
+\RequirePackage[a4paper,left=2cm,right=6cm,marginpar=4.5cm]{geometry}
 
 %% 定制字体
 \setCJKmainfont[Scale=0.96,ItalicFont={KaiTi},BoldFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
@@ -46,6 +48,14 @@
 \setCJKsansfont[Scale=0.96]{Noto Sans CJK SC Light}
 \RequirePackage{marginnote}
 \RequirePackage{sidenotes}
+
+%% 定制页头
+\RequirePackage{fancyhdr}
+\fancyhf{}
+\lhead{\textnormal{\rightmark}}
+\rhead{--\ \thepage\ --}
+\pagestyle{fancy}
+
 
 %% 定制sidenotes的样式，来自
 %% https://tex.stackexchange.com/questions/532245/how-to-modify-fonts-in-sidenotes
@@ -86,3 +96,6 @@
 
 %% 代码列表用minted
 \RequirePackage{minted}
+
+%% microtype
+\RequirePackage{microtype}
