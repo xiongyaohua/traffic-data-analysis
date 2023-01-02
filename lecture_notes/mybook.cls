@@ -33,12 +33,15 @@
 %\setlength{\textheight}{22cm}
 %%\setcounter{secnumdepth}{0}
 
+%% 最佳实践 https://www.semipol.de/posts/2018/06/latex-best-practices-lessons-learned-from-writing-a-phd-thesis/
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 \LoadClass[fontset=none,twoside,punct=kaiming,12pt]{ctexrep}
 \pagestyle{headings}
-\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC},BoldFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
+
+%% 定制字体
+\setCJKmainfont[Scale=0.96,ItalicFont={KaiTi},BoldFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
 %\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
 \setCJKsansfont[Scale=0.96]{Noto Sans CJK SC Light}
 \RequirePackage{marginnote}
@@ -72,3 +75,7 @@
 %% 插图
 \RequirePackage{graphicx}
 %\graphicspath{ {./images/} }
+
+%% 参考文献，用BibLaTeX而不是BibTeX。TODO 如何使用？
+\RequirePackage[backend=biber,style=alphabetic,url=false]{biblatex}
+
