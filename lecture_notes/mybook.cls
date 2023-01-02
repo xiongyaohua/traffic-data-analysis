@@ -38,8 +38,9 @@
 \ProcessOptions\relax
 \LoadClass[fontset=none,twoside,punct=kaiming,12pt]{ctexrep}
 \pagestyle{headings}
-\setCJKsansfont[Scale=0.96]{Noto Sans CJK SC}
-\setCJKmainfont[Scale=0.96]{Noto Serif CJK SC}
+\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC},BoldFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
+%\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
+\setCJKsansfont[Scale=0.96]{Noto Sans CJK SC Light}
 \RequirePackage{marginnote}
 \RequirePackage{sidenotes}
 
