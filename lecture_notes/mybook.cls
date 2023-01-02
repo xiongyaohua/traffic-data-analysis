@@ -58,6 +58,9 @@
     {\oldmarginpar[\mymparsetup #1]{\mymparsetup #2}}}
 \newcommand{\mymparsetup}{\scriptsize}
 
+% 定制sidenotes中的caption
+\DeclareCaptionStyle{widefigure}{font=normalsize}
+
 % 重置sidenote的计数器
 \let\oldchapter\chapter
 \def\chapter{%
