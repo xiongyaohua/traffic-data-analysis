@@ -33,7 +33,7 @@
 \newif\ifsolution
 
 %%% 是否显示答案
-%\solutiontrue
+\solutiontrue
 %\solutionfalse
 
 \newcounter{question}
@@ -134,10 +134,9 @@
 
 \section{考试诚信承诺书}
 
-我郑重承诺：
+我郑重承诺：我愿意服从学校本次考试的安排，承认考试成绩的有效性，并已经认真阅读、了解《西南交通大学考试考场管理办法》和《西南交通大学本科生考试违规处理办法》，我愿意在本次考试过程中严格服从监考教师的相关指令安排，诚信考试。如果在考试过程中违反相关规定，我愿意接受《西南交通大学本科生考试违规处理办法》的规定处理。
 
-我愿意服从学校本次考试的安排，承认考试成绩的有效性，并已经认真阅读、了解《西南交通大学考试考场管理办法》和《西南交通大学本科生考试违规处理办法》，我愿意在本次考试过程中严格服从监考教师的相关指令安排，诚信考试。如果在考试过程中违反相关规定，我愿意接受《西南交通大学本科生考试违规处理办法》的规定处理。
-\begin{choice}{您是否同意：}
+\begin{choice}[A]{您是否同意：}
     \item 同意
     \item 不同意 
 \end{choice}
@@ -146,89 +145,89 @@
 
 \section{选择题\textmd{(20小题，每小题3分，共60分)}}
 
-\begin{choice}[B]{交通领域可使用多种形式的原始数据，以下检测方式中利用电磁感应感知车辆的是
+\begin{choice}[C]{交通领域可使用多种形式的原始数据，以下检测方式中利用卫星信号定位的是
     哪一个}
+    \item 交叉口车牌识别数据
     \item 感应线圈检测器
     \item 车辆GPS轨迹数据
-    \item 交叉口车牌识别数据
     \item OD调查数据
 \end{choice}
 
-\begin{choice}[C]{综合考虑成本和效率，\emph{最适合}采集出行者社会经济情况数据的手段是}
+\begin{choice}[A]{综合考虑成本和效率，\emph{最适合}采集出行者社会经济情况数据的手段是}
+    \item 问卷调查
     \item 出租车GPS定位
     \item 交叉口车牌识别
     \item 手机基站定位
-    \item 问卷调查
 \end{choice}
 
-\begin{choice}[A]{根据分类\emph{示例}将数据划分为多个类别的模型称为}
+\begin{choice}[A]{根据时间序列数据预测未来的模型称为}
+    \item 滤波模型
     \item 回归模型
     \item 分类模型
     \item 聚类模型
-    \item 滤波模型
 \end{choice}
 
 \begin{choice}[A]{对于\emph{线性回归}模型$y=w\cdot x+b$，损失函数$L$的定义是}
-    \item $L=\sum |y-w\cdot x-b|$
-    \item $L=\sum (y-w\cdot x-b)$
     \item $L=\sum (y-w\cdot x-b)^2$
     \item $L=\sum (y-w\cdot x-b)^3$
+    \item $L=\sum |y-w\cdot x-b|$
+    \item $L=\sum (y-w\cdot x-b)$
 \end{choice}
 
-\begin{choice}[D]{机器学习模型参数\emph{欠拟合}现象是指模型损失函数}
-    \item 在训练集上大，在测试集上小
-    \item 在训练集上大，在测试集上大
+\begin{choice}[B]{机器学习模型参数\emph{过拟合}现象是指模型损失函数}
     \item 在训练集上小，在测试集上小
     \item 在训练集上小，在测试集上大
+    \item 在训练集上大，在测试集上小
+    \item 在训练集上大，在测试集上大
 \end{choice}
 
-\begin{choice}[C]{当模型与数据出现\emph{欠拟合}时，可能的解决方法是}
-    \item 减少参数数量
-    \item 增加参数数量
+\begin{choice}[BD]{当模型与数据出现\emph{欠拟合}时，可能的解决方法是}
     \item 缩小参数取值范围
     \item 扩大参数取值范围
+    \item 减少参数数量
+    \item 增加参数数量
 \end{choice}
 
-\begin{choice}[A]{某数据集包含10000个数据点，前后5000点分别来自A、B两个场景。分析A场景时选择数据的正确方式是}
-    \item 随机抽取5000个数据点
-    \item 顺序抽取前5000个数据点
+\begin{choice}[C]{某数据集包含10000个数据点，前后5000点分别来自A、B两个场景。分析A场景时选择数据的正确方式是}
     \item 顺序抽取后5000个数据点
     \item 抽取自变量取值最小的5000个数据点
+    \item 随机抽取5000个数据点
+    \item 顺序抽取前5000个数据点
 \end{choice}
 
-\begin{choice}[A]{Logistic回归中用到的映射函数是}
-    \item $\sigma(x)=\frac{e^x}{1+e^x}$
-    \item $\sigma(x)=\frac{1}{1+e^x}$
+\begin{choice}[C]{Logistic回归中用到的映射函数是}
     \item $\sigma(x)=\frac{e^x+1}{e^x}$
     \item $\sigma(x)=\frac{e^x+1}{1}$
+    \item $\sigma(x)=\frac{e^x}{1+e^x}$
+    \item $\sigma(x)=\frac{1}{1+e^x}$
 \end{choice}
 
-\begin{choice}[D]{线性回归的损失函数称为}
-    \item 均方差函数
-    \item 0-1损失函数
+\begin{choice}[B]{Logistic回归的损失函数称为}
     \item 铰链损失函数
     \item 交叉熵损失函数
+    \item 均方差函数
+    \item 0-1损失函数
 \end{choice}
 
-\begin{choice}[B]{支持向量机模型中\emph{支持向量}是指}
-    \item 满足$y_i(w\cdot x_i+b)> 1$的数据点
-    \item 满足$y_i(w\cdot x_i+b)= 1$的数据点
+\begin{choice}[D]{支持向量机模型中\emph{支持向量}是指}
     \item 满足$y_i(w\cdot x_i+b)= 0$的数据点
     \item 满足$y_i(w\cdot x_i+b)> 0$的数据点
+    \item 满足$y_i(w\cdot x_i+b)> 1$的数据点
+    \item 满足$y_i(w\cdot x_i+b)= 1$的数据点
 \end{choice}
 
-\begin{choice}[D]{以下聚类方法中直接利用了高斯分布函数性质的方法是}
+\begin{choice}[D]{以下聚类方法中利用数据点相邻距离的方法是}
     \item K-平均聚类
     \item K-Medoids聚类
     \item 高斯混合聚类
     \item DBSCAN聚类
 \end{choice}
 
-\begin{choice}[A]{高斯混合模型公式如下
+\begin{choice}[D]{高斯混合模型公式如下
     \[f_M(x)=\sum_{i=1}^k\alpha_i\cdot
     \frac{1}{2\pi\sqrt{|\Sigma|}}e^{-\frac{1}{2}
     (y-\mu)^T\Sigma^{-1}(y-\mu)}\]
-    其中协方差矩阵是
+    其中期望值是
     }
     \item $\alpha_i$
     \item $\Sigma$
@@ -236,8 +235,8 @@
     \item $\mu$
 \end{choice}
 
-\begin{choice}[B]{神经网络的\emph{规模}是指}
-    \item 神经元总数
+\begin{choice}[A]{神经网络的\emph{宽度}是指}
+    \item 每层神经元数
     \item 层数
     \item 输入属性数量
     \item 输出属性数量
@@ -250,28 +249,28 @@
     \item 异或门XOR
 \end{choice}
 
-\begin{choice}[B]{当前时间序列数据处理中最常用的神经网络形式是}
+\begin{choice}[A]{下列最通用的神经网络形式是}
     \item 分层神经网络
     \item 卷积神经网络
     \item 循环神经网络
     \item LSTM
 \end{choice}
 
-\begin{choice}[A]{神经网络常用激活函数形式中\emph{最早}被广泛采用的是}
+\begin{choice}[A]{神经网络常用激活函数形式中\emph{当前}被广泛采用的是}
     \item ReLU
     \item Sigmoid
     \item Tanh
     \item Softmax
 \end{choice}
 
-\begin{choice}[C]{应用贝叶斯公式中经常被省略掉的部分是}
-    \item 先验概率
-    \item 后验概率
+\begin{choice}[B]{应用贝叶斯公式中经常被省略掉的部分是}
     \item 似然概率
     \item 数据全概率
+    \item 先验概率
+    \item 后验概率
 \end{choice}
 
-\begin{choice}[B]{Kalman滤波模型中描述系统状态值$x$随时间自发变化的矩阵是}
+\begin{choice}[A]{Kalman滤波模型中描述系统状态值$x$随时间自发变化的矩阵是}
     \item 系统状态转移矩阵
     \item 观测矩阵
     \item 协方差矩阵
@@ -279,13 +278,13 @@
 \end{choice}
 
 \begin{choice}[A]{以下滤波模型中对噪音为正态分布的数据效果最好的是}
-    \item 贝叶斯滤波
-    \item G-H滤波
     \item Kalman滤波
     \item 粒子滤波
+    \item 贝叶斯滤波
+    \item G-H滤波
 \end{choice}
 
-\begin{choice}[D]{用于可视化绘图的Python模块是}
+\begin{choice}[C]{用于机器学习的Python模块是}
     \item matplotlib
     \item pandas
     \item scikit
@@ -300,7 +299,7 @@
 \end{question}
 
 \begin{question}
-    什么是支持向量机，举例说明其应用。
+    什么是Logistic回归，举例说明其应用。
 \end{question}
 
 \newpage
@@ -320,7 +319,7 @@
     \hline
     \hline
     $x$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-    $y$ & 1 & 4 & 3 & 7 & 5 & 3 & 7 & 8\\
+    $y$ & 2 & 5 & 3 & 3 & 5 & 3 & 9 & 8\\
     \hline
 \end{tabular}
 \end{center}
@@ -492,7 +491,7 @@
     \hline
     \hline
     $x$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
-    $y$ & 1 & 4 & 3 & 7 & 5 & 3 & 7 & 8\\
+    $y$ & 2 & 5 & 3 & 3 & 5 & 3 & 9 & 8\\
     \hline
 \end{tabular}
 \end{center} 
