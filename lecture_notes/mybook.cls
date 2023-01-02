@@ -79,3 +79,5 @@
 %% 参考文献，用BibLaTeX而不是BibTeX。TODO 如何使用？
 \RequirePackage[backend=biber,style=alphabetic,url=false]{biblatex}
 
+%% 代码列表用minted
+\RequirePackage{minted}
