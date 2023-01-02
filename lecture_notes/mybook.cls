@@ -42,4 +42,29 @@
 \setCJKmainfont[Scale=0.96]{Noto Serif CJK SC}
 \RequirePackage{marginnote}
 \RequirePackage{sidenotes}
-\renewcommand*{\marginfont}{\scriptsize}
+
+%% 定制sidenotes的样式，来自
+%% https://tex.stackexchange.com/questions/532245/how-to-modify-fonts-in-sidenotes
+% 定制\marginpar
+%\renewcommand*{\marginfont}{\scriptsize\captionsetup{font=scriptsize}}
+%\renewcommand*{\marginfont}{\scriptsize}
+
+% 定制\marginnote
+\RequirePackage{xparse}
+\let\oldmarginpar\marginpar
+\RenewDocumentCommand{\marginpar}{om}{%
+  \IfNoValueTF{#1}
+    {\oldmarginpar{\mymparsetup #2}}
+    {\oldmarginpar[\mymparsetup #1]{\mymparsetup #2}}}
+\newcommand{\mymparsetup}{\scriptsize}
+
+% 重置sidenote的计数器
+\let\oldchapter\chapter
+\def\chapter{%
+  \setcounter{sidenote}{1}%
+  \oldchapter
+}
+
+%% 插图
+\RequirePackage{graphicx}
+%\graphicspath{ {./images/} }
