@@ -49,7 +49,12 @@
 \RequirePackage{sidenotes}
 
 % 定制英文字体
-\RequirePackage{times}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+%\setmonofont{Noto Sans Mono CJK SC}
+\setmonofont{FiraCode Nerd Font Mono}
+
+% 定制公式
 
 %% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
 \let\emph\relax % there's no \RedeclareTextFontCommand
