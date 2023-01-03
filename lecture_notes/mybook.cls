@@ -37,31 +37,50 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-\LoadClass[fontset=none,twoside,punct=kaiming,12pt]{ctexrep}
+\LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
 
 %% 页面布局定制
 \RequirePackage[a4paper,left=2cm,right=6cm,marginpar=4.5cm]{geometry}
 
-%% 定制字体
-\setCJKmainfont[Scale=0.96,ItalicFont={KaiTi},BoldFont={Noto Sans CJK SC}]{Noto Serif CJK SC}
-%\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
-\setCJKsansfont[Scale=0.96]{Noto Sans CJK SC Light}
+%% 定制中文字体。serif->宋体、sans->黑体、italic->楷体。
+\setCJKmainfont[Scale=0.96,ItalicFont={KaiTi}]{Noto Serif CJK SC}
+\setCJKsansfont[Scale=0.96,ItalicFont={KaiTi}]{Noto Sans CJK SC Light}
 \RequirePackage{marginnote}
 \RequirePackage{sidenotes}
+
+% 定制英文字体
+\RequirePackage{times}
+
+%% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries}
+
+% CTeX标题定制，参考文档
+\ctexset {
+  part/pagestyle = empty,
+  chapter = {
+    format = \huge\bfseries\raggedleft,
+    pagestyle = empty,
+    aftertitle = \par\bigskip\nointerlineskip\rule{\linewidth}{1bp}\par
+  },
+  section = {
+    format = \Large\bfseries\raggedright
+  }
+}
 
 %% 定制页头
 \RequirePackage{fancyhdr}
 \fancyhf{}
 \lhead{\textnormal{\rightmark}}
-\rhead{--\ \thepage\ --}
+\rhead{-\ \thepage\ -}
 \pagestyle{fancy}
 
 
 %% 定制sidenotes的样式，来自
 %% https://tex.stackexchange.com/questions/532245/how-to-modify-fonts-in-sidenotes
 % 定制\marginpar
-%\renewcommand*{\marginfont}{\scriptsize\captionsetup{font=scriptsize}}
-%\renewcommand*{\marginfont}{\scriptsize}
+\renewcommand*{\marginfont}{\scriptsize\captionsetup{font=scriptsize}}
+\renewcommand*{\marginfont}{\scriptsize}
 
 % 定制\marginnote
 \RequirePackage{xparse}
@@ -75,23 +94,23 @@
 % 定制sidenotes中的caption
 \DeclareCaptionStyle{widefigure}{font=normalsize}
 
-% 重置sidenote的计数器
-\let\oldchapter\chapter
-\def\chapter{%
-  \setcounter{sidenote}{1}%
-  \oldchapter
-}
+% 每章重置sidenote的计数器
+%\let\oldchapter\chapter
+%\def\chapter{%
+%  \setcounter{sidenote}{1}%
+%  \oldchapter
+%}
 
 %% 插图
 \RequirePackage{graphicx}
 %\graphicspath{ {./images/} }
 
 % 保证最后一页的浮动图在顶上，见 https://tex.stackexchange.com/questions/66252/placing-the-figure-exactly-at-the-top-of-the-page-in-latex
-\makeatletter
-\setlength{\@fptop}{0pt}
-\makeatother
+%\makeatletter
+%\setlength{\@fptop}{0pt}
+%\makeatother
 
-%% 参考文献，用BibLaTeX而不是BibTeX。TODO 如何使用？
+%% 参考文献，用BibLaTeX而不是BibTeX。
 \RequirePackage[backend=biber,style=alphabetic,url=false]{biblatex}
 
 %% 代码列表用minted
