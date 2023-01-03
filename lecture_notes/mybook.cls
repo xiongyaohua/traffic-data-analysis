@@ -96,7 +96,7 @@
     {\oldmarginpar[\mymparsetup #1]{\mymparsetup #2}}}
 \newcommand{\mymparsetup}{\scriptsize}
 
-% 定制sidenotes中的caption
+% 定制sidenotes/figure*的caption
 \DeclareCaptionStyle{widefigure}{font=normalsize}
 
 % 每章重置sidenote的计数器
@@ -120,6 +120,10 @@
 
 %% 代码列表用minted
 \RequirePackage{minted}
+
+%% 引语
+\RequirePackage{csquotes}
+
 
 %% microtype
 \RequirePackage{microtype}
