@@ -77,6 +77,7 @@
 \RequirePackage{fancyhdr}
 \fancyhf{}
 \lhead{\textnormal{\rightmark}}
+%\lhead{\textbf{\rightmark}}
 \rhead{-\ \thepage\ -}
 \pagestyle{fancy}
 
@@ -117,6 +118,11 @@
 
 %% 参考文献，用BibLaTeX而不是BibTeX。
 \RequirePackage[backend=biber,style=alphabetic,url=false]{biblatex}
+
+%% 定制交叉引用
+\RequirePackage{cleveref}
+\crefname{figure}{图}{图} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
+\crefname{table}{表}{表} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 
 %% 代码列表用minted
 \RequirePackage{minted}
