@@ -43,8 +43,8 @@
 \RequirePackage[a4paper,left=2.5cm,right=6cm,marginpar=4.5cm]{geometry}
 
 %% 定制中文字体。serif->宋体、sans->黑体、italic->楷体。
-\setCJKmainfont[Scale=0.96,ItalicFont={KaiTi}]{Noto Serif CJK SC}
-\setCJKsansfont[Scale=0.96,ItalicFont={KaiTi}]{Noto Sans CJK SC Light}
+\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
+\setCJKsansfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Sans CJK SC Light}
 \RequirePackage{marginnote}
 \RequirePackage{sidenotes}
 
@@ -66,7 +66,8 @@
   chapter = {
     format = \huge\bfseries\raggedleft,
     pagestyle = empty,
-    aftertitle = \par\bigskip\nointerlineskip\rule{\linewidth}{1bp}\par
+    aftertitle = \par\bigskip\nointerlineskip\rule{\linewidth}{1bp}\par,
+    %afterskip = 10pt,
   },
   section = {
     format = \Large\bfseries\raggedright
@@ -144,15 +145,19 @@
 }
 
 \newenvironment{cabstract}{
+  \removelastskip
+  \vskip 10pt
   \begin{myframe}{本章要点}
       \begin{itemize}
-          \setlength{\itemsep}{0pt}
-          \setlength{\parskip}{0pt}
-          \setlength{\parsep}{0pt}
+      \vskip 5pt 
+      \setlength{\itemsep}{0pt}
+      \setlength{\parskip}{0pt}
+      \setlength{\parsep}{0pt}
 }
 {
       \end{itemize}
   \end{myframe}
+  \vskip 30pt
 }
 
 %% microtype
