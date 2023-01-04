@@ -130,6 +130,30 @@
 %% 引语
 \RequirePackage{csquotes}
 
+%% 章节提要
+\RequirePackage[skins]{tcolorbox}
+
+\newtcolorbox{myframe}[2][]{%
+  enhanced,colback=white,colframe=black,coltitle=black,
+  sharp corners,boxrule=0.4pt,
+  fonttitle=\bfseries,
+  attach boxed title to top left={yshift=-0.5\baselineskip,xshift=2mm},
+  boxed title style={tile,size=minimal,left=1mm,right=1mm,
+    colback=white,before upper=\strut},
+  title=#2,#1
+}
+
+\newenvironment{cabstract}{
+  \begin{myframe}{本章要点}
+      \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \setlength{\parskip}{0pt}
+          \setlength{\parsep}{0pt}
+}
+{
+      \end{itemize}
+  \end{myframe}
+}
 
 %% microtype
 \RequirePackage{microtype}
