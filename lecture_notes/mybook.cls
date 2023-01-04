@@ -153,6 +153,7 @@
       \setlength{\itemsep}{0pt}
       \setlength{\parskip}{0pt}
       \setlength{\parsep}{0pt}
+      \itshape
 }
 {
       \end{itemize}
