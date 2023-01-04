@@ -40,7 +40,7 @@
 \LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
 
 %% 页面布局定制
-\RequirePackage[a4paper,left=2cm,right=6cm,marginpar=4.5cm]{geometry}
+\RequirePackage[a4paper,left=2.5cm,right=6cm,marginpar=4.5cm]{geometry}
 
 %% 定制中文字体。serif->宋体、sans->黑体、italic->楷体。
 \setCJKmainfont[Scale=0.96,ItalicFont={KaiTi}]{Noto Serif CJK SC}
