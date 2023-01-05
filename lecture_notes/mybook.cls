@@ -56,6 +56,9 @@
 
 % 定制公式
 
+%% 数学
+\RequirePackage{amsmath}
+
 %% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
 \let\emph\relax % there's no \RedeclareTextFontCommand
 \DeclareTextFontCommand{\emph}{\bfseries}
@@ -124,6 +127,7 @@
 \RequirePackage{cleveref}
 \crefname{figure}{图}{图} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 \crefname{table}{表}{表} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
+\crefname{equation}{公式}{公式} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 
 %% 代码列表用minted
 \RequirePackage{minted}
