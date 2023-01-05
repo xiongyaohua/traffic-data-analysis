@@ -58,6 +58,23 @@
 
 %% 数学
 \RequirePackage{amsmath}
+\RequirePackage{bm}
+\RequirePackage{mathtools}
+
+\newcommand{\mat}[1]{\bm{#1}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\MA}{\mat{A}}
+\newcommand{\MI}{\mat{I}}
+\newcommand{\Va}{\Vec{a}}
+\newcommand{\Vy}{\vec{y}}
+\newcommand{\Vx}{\vec{x}}
+\newcommand{\Ve}{\vec{e}}
+\newcommand{\Vw}{\vec{w}}
+\newcommand{\Vt}{\vec{\theta}}
+\newcommand{\SR}{\mathcal{R}}
+\newcommand{\DN}{\mathcal{N}}
 
 %% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
 \let\emph\relax % there's no \RedeclareTextFontCommand
