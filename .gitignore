@@ -431,3 +431,5 @@ TSWLatexianTemp*
 #*Notes.bib
 
 .DS_Store
+
+!*/images/*.pdf
