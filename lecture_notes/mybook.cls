@@ -63,7 +63,6 @@
 
 \newcommand{\mat}[1]{\bm{#1}}
 \renewcommand{\vec}[1]{\bm{#1}}
-\DeclareMathOperator*{\argmin}{arg\,min}
 
 %% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
 \let\emph\relax % there's no \RedeclareTextFontCommand

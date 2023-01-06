@@ -124,9 +124,9 @@
 \end{equation}
 此时方程是否有解由矩阵$\MW^{-1}\MW$是否可逆决定。
 可以证明无论$\MW$是什么形状，$\MW^{-1}\MW$都是正方形矩阵，一般来说可逆。
-最佳近似解，为了与精确解区别记作$\hat{\Vu}$\sidenote{$\hat{\Vu}$读作"hat u"}，可以通过以下公式计算
+为了与精确解区别，最佳近似解记作$\Vu^*$，可以通过以下公式计算
 \begin{equation}
-    \hat{\Vu}=(\MW^{-1}\MW)^{-1}\MW^{-1}\Vv
+    \Vu^*=(\MW^{-1}\MW)^{-1}\MW^{-1}\Vv
 \end{equation}
 
 \section{线性回归原理}
@@ -137,6 +137,7 @@
 假定参数$a$，$b$为已知量，利用\cref{eq:linear-kv}可以根据密度$k$计算速度$v$。
 此时一个密度对应两个速度，一个称为\emph{实测值}另一个称为\emph{预测值}。
 例如密度$k_1$对应的实测值是$v_1$，预测值为了区别记作$\hat{v}_1=f(k_i)=ak_1+b$。
+\nolinebreak\sidenote[][0cm]{$\hat{v}$读作“hat v”或者“帽子 v”}%
 实测值和预测值之间的差别称为\emph{残差}，记作$e_1=\hat{v}_1-v_1$。
 理想情况下实测值与预测值吻合，残差$e_1=0$；如果做不到，越接近$0$越好。
 
@@ -208,13 +209,38 @@
 其中$\Vv$是所有速度实测值的向量，$\MW$是权重矩阵，$\Vk$是所有密度数据的向量，$\vec{1}$是全$1$向量。
 
 把\cref{eq:e-vec}带入\cref{eq:sse-vec}，然后展开化简可以得到
-\begin{equation}
+\begin{equation}\label{eq:sse-function}
     \begin{split}
-        \text{SSE(a,b)} &= \Ve^T\cdot\Ve\\
+        \text{SSE}(\Vu) &= \Ve^T\cdot\Ve\\
         &=(\Vv-\MW\Vu)^T(\Vv-\MW\Vu)\\
         &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
-        -\Vv\MW\Vu-(\MW\Vu)^T\Vv\\
-        &=\Vv^T\Vv+\Vu^T\MW^T\MW\Vu
-        -\Vv\MW\Vu-\Vu^T\MW^T\Vu
+        -\Vv^T\MW\Vu-(\MW\Vu)^T\Vv\\
+        &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
+        -(\MW\Vu)^T\Vv-(\MW\Vu)^T\Vv\\
+        &=\Vu^T\MW^T\MW\Vu-2\Vu^T\MW^T\Vv-\Vv^T\Vv
     \end{split}
 \end{equation}
+其中我们用到向量点积的交换关系$\Va^T\Vb=\Vb^T\Va$，以及矩阵转置的交换关系$(\MA\MB)^T=\MB^T\MA^T$。
+
+\subsubsection{残差平方和最小化}
+
+通过推导我们写出了残差平方与参数之间公式$\text{SSE}(\Vu)$，接下来就是要找到特定的参数取值$\Vu=\Vu^*$，让$\text{SSE}(\Vu^*)$最小；
+即$\text{SSE}(\Vu^*)\leq\text{SSE}(\Vu)\text{，}\forall\Vu$。
+这是一个典型的\emph{最优化问题}，可以记作
+\sidenote{$\argmin$是“argumentum minimi”，最小化参数，的缩写；与之对应的是$\argmax$，“argumentum maximi”。}
+\begin{equation}
+    \Vu^*=\argmin \text{SSE}(\Vu)
+\end{equation}
+
+观察\cref{eq:sse-function}，可以看到$\text{SSE}(\Vu)$的自变量$\Vu$虽然是向量，但是总体形式类似于一个抛物线函数$au^2-bu+c$。
+利用微积分的知识，我们推测该函数存在最小值，且最小值处导数为$0$。由此我们列出方程
+\begin{equation}
+    \begin{split}
+        \frac{\partial\text{SSE}}{\partial\Vu}(\Vu^*)&=\left[
+        \frac{\Vu^T\MW^T\MW\Vu}{\partial\Vu}-
+        \frac{2\Vu^T\MW^T\Vv}{\partial\Vu}-
+        \frac{\Vv^T\Vv}{\partial\Vu}\right](\Vu^*)\\
+        &=2\MW^T\MW\Vu^*-2\MW^T\Vv=0
+    \end{split}
+\end{equation}
+整理最后两项我们得到\cref{eq:least-square}中的最小二乘形式，由此说明了线性回归从代数角度解释的意义是找出让残差平方和最小的最优拟合参数。
