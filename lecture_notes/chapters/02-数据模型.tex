@@ -149,7 +149,7 @@
 其中$n$是数据点数量，$e_i$代表第$i$个数据点的残差。残差平方和并不是唯一的指标，首先介绍的原因是他有一些良好的性质，可以简化数学处理。
 另一个常用的指标是\emph{残差绝对值之和}$\sum_{i=1}^{n}|e_i|$，虽然在数学处理上难度更高，但是在其他方面更有优势，会在后续章节介绍。
 
-根据以上定义可以看出残差平方和$\text{SSE}$是参数$a$、$b$的函数，因为不同的$a$、$b$取值会影响预测值$\hat{v}$，进而影响到残差$e_i$，再而影响到残差平方和。需要特殊强调这个函数关系时残差平方和可以记作$\text{SSE}(a,b)$，接下来我们推导它的公式。
+根据以上定义可以看出残差平方和$\text{SSE}$是参数$a$、$b$的函数，因为不同的$a$、$b$取值会影响预测值$\hat{v}$，进而影响到残差$e_i$，再而影响到残差平方和。需要特殊强调这个函数关系时残差平方和可以记作$\text{SSE}(a,b)$或者$\text{SSE}(\vec{u})$，接下来我们推导它的公式。
 
 根据\cref{eq:sse}的定义，我们可以把残差平方和写成向量\emph{点积}形式
 \begin{equation}\label{eq:sse-vec}
@@ -201,12 +201,20 @@
             \vdots\\
             1
         \end{bmatrix}\\
-        &=\vec{v}-a\cdot\vec{k}-b\cdot\vec{1}\\
-        &=\vec{v}-\hat{\vec{v}}
+        &=\vec{v}-a\vec{k}-b\vec{1}\\
+        &=\vec{v}-\mat{W}\vec{u}
     \end{split}
 \end{equation}
-其中$\vec{v}$是所有速度实测值的向量，$\hat{\vec{v}}$是所有速度预测值的向量，$\vec{k}$是所有密度数据的向量，$\vec{1}$是全$1$向量。
+其中$\vec{v}$是所有速度实测值的向量，$\mat{W}$是权重矩阵，$\vec{k}$是所有密度数据的向量，$\vec{1}$是全$1$向量。
 
-把\cref{eq:e-vec}带入\cref{eq:sse-vec}可以得到
+把\cref{eq:e-vec}带入\cref{eq:sse-vec}，然后展开化简可以得到
 \begin{equation}
+    \begin{split}
+        \text{SSE(a,b)} &= \vec{e}^T\cdot\vec{e}\\
+        &=(\vec{v}-\mat{W}\vec{u})^T(\vec{v}-\mat{W}\vec{u})\\
+        &=\vec{v}^T\vec{v}+(\mat{W}\vec{u})^T\mat{W}\vec{u}
+        -\vec{v}\mat{W}\vec{u}-(\mat{W}\vec{u})^T\vec{v}\\
+        &=\vec{v}^T\vec{v}+\vec{u}^T\mat{W}^T\mat{W}\vec{u}
+        -\vec{v}\mat{W}\vec{u}-\vec{u}^T\mat{W}^T\vec{u}
+    \end{split}
 \end{equation}
