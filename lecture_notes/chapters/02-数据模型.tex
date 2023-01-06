@@ -76,19 +76,19 @@
 
 可以看到方程由三项构成，我们分别规定用字母表示。其中左边是所有速度数据构成的向量%
 \sidenote{注意区别$\Vv$和$v$，黑体字母$\Vv$表示向量，正常字母$v$表示标量。}
-，写作$\Vv$；中间是一个权重(weight)矩阵，写作$\mat{W}$；右边是由所有参数构成的矩阵，写作$\Vu$。此时\cref{eq:la-kv}进一步简化表示为
+，写作$\Vv$；中间是一个权重(weight)矩阵，写作$\MW$；右边是由所有参数构成的矩阵，写作$\Vu$。此时\cref{eq:la-kv}进一步简化表示为
 \begin{equation}
-    \Vv=\mat{W}\cdot\mat{u}
+    \Vv=\MW\cdot\Vu
 \end{equation}
-如果权重矩阵$\mat{W}$可逆，参数$a$、$b$可以通过以下公式计算
+如果权重矩阵$\MW$可逆，参数$a$、$b$可以通过以下公式计算
 \begin{equation}\label{eq:la-eq}
     \begin{bmatrix}
         a\\
         b
     \end{bmatrix}=
-    \Vu=\mat{W}^{-1}\cdot\Vv
+    \Vu=\MW^{-1}\cdot\Vv
 \end{equation}
-而这里的权重矩阵$\mat{W}=\big[
+而这里的权重矩阵$\MW=\big[
 \begin{smallmatrix}
     k_1 & 1\\
     k_2 & 1
@@ -118,15 +118,15 @@
 无法求解的原因是我们有两个未知量$a$、$b$，但是有三个约束条件分别来自数据$p_1$、$p_2$、$p_3$，这类问题在数学上称为\emph{过约束}问题。
 
 线性回归是解决这类过约束问题的常见方法，能够在没有精确解的情况下求出最优近似解。
-当线性方程组$\Vv=\mat{W}\cdot\mat{u}$因为过约束无解时，方程两边同时乘以$\mat{W}^{-1}$，将\cref{eq:la-eq}转化为以下\emph{最小二乘形式}
+当线性方程组$\Vv=\MW\cdot\Vu$因为过约束无解时，方程两边同时乘以$\MW^{-1}$，将\cref{eq:la-eq}转化为以下\emph{最小二乘形式}
 \begin{equation}\label{eq:least-square}
-    \mat{W}^{-1}\Vv=\mat{W}^{-1}\mat{W}\cdot\mat{u}
+    \MW^{-1}\Vv=\MW^{-1}\MW\cdot\Vu
 \end{equation}
-此时方程是否有解由矩阵$\mat{W}^{-1}\mat{W}$是否可逆决定。
-可以证明无论$\mat{W}$是什么形状，$\mat{W}^{-1}\mat{W}$都是正方形矩阵，一般来说可逆。
-最佳近似解，为了与精确解区别记作$\hat{\mat{u}}$\sidenote{$\hat{\Vu}$读作"hat u"}，可以通过以下公式计算
+此时方程是否有解由矩阵$\MW^{-1}\MW$是否可逆决定。
+可以证明无论$\MW$是什么形状，$\MW^{-1}\MW$都是正方形矩阵，一般来说可逆。
+最佳近似解，为了与精确解区别记作$\hat{\Vu}$\sidenote{$\hat{\Vu}$读作"hat u"}，可以通过以下公式计算
 \begin{equation}
-    \hat{\Vu}=(\mat{W}^{-1}\mat{W})^{-1}\mat{W}^{-1}\Vv
+    \hat{\Vu}=(\MW^{-1}\MW)^{-1}\MW^{-1}\Vv
 \end{equation}
 
 \section{线性回归原理}
@@ -202,19 +202,19 @@
             1
         \end{bmatrix}\\
         &=\Vv-a\Vk-b\vec{1}\\
-        &=\Vv-\mat{W}\Vu
+        &=\Vv-\MW\Vu
     \end{split}
 \end{equation}
-其中$\Vv$是所有速度实测值的向量，$\mat{W}$是权重矩阵，$\Vk$是所有密度数据的向量，$\vec{1}$是全$1$向量。
+其中$\Vv$是所有速度实测值的向量，$\MW$是权重矩阵，$\Vk$是所有密度数据的向量，$\vec{1}$是全$1$向量。
 
 把\cref{eq:e-vec}带入\cref{eq:sse-vec}，然后展开化简可以得到
 \begin{equation}
     \begin{split}
         \text{SSE(a,b)} &= \Ve^T\cdot\Ve\\
-        &=(\Vv-\mat{W}\Vu)^T(\Vv-\mat{W}\Vu)\\
-        &=\Vv^T\Vv+(\mat{W}\Vu)^T\mat{W}\Vu
-        -\Vv\mat{W}\Vu-(\mat{W}\Vu)^T\Vv\\
-        &=\Vv^T\Vv+\Vu^T\mat{W}^T\mat{W}\Vu
-        -\Vv\mat{W}\Vu-\Vu^T\mat{W}^T\Vu
+        &=(\Vv-\MW\Vu)^T(\Vv-\MW\Vu)\\
+        &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
+        -\Vv\MW\Vu-(\MW\Vu)^T\Vv\\
+        &=\Vv^T\Vv+\Vu^T\MW^T\MW\Vu
+        -\Vv\MW\Vu-\Vu^T\MW^T\Vu
     \end{split}
 \end{equation}
