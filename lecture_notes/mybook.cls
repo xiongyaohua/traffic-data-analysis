@@ -118,7 +118,7 @@
 
 %% 插图
 \RequirePackage{graphicx}
-%\graphicspath{ {./images/} }
+\graphicspath{{images/}}
 
 % 保证最后一页的浮动图在顶上，见 https://tex.stackexchange.com/questions/66252/placing-the-figure-exactly-at-the-top-of-the-page-in-latex
 %\makeatletter
