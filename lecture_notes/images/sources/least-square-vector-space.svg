@@ -29,13 +29,13 @@
      showgrid="false"
      inkscape:zoom="1.9720632"
      inkscape:cx="289.79802"
-     inkscape:cy="184.32472"
+     inkscape:cy="224.89138"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="0"
      inkscape:window-y="130"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer3" />
   <defs
      id="defs2">
     <marker
@@ -206,6 +206,13 @@
        style="fill:none;fill-opacity:0.295002;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.8, 0.8;stroke-dashoffset:0;stroke-opacity:1"
        d="M 66.34309,19.863498 81.97575,56.979399"
        id="path12477" />
+    <rect
+       style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       id="rect19663"
+       width="148"
+       height="105"
+       x="0"
+       y="0" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -222,7 +229,7 @@
        id="path2099"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.8;stroke-dasharray:none;marker-end:url(#marker7494-0-2)"
+       style="fill:none;stroke:#909090;stroke-width:0.8;stroke-dasharray:none;marker-end:url(#marker7494-0-2);stroke-opacity:1"
        d="m 41.502362,67.817966 35.735899,-9.69304"
        id="path2273-1"
        sodipodi:nodetypes="cc" />
@@ -294,5 +301,17 @@
          d="M 63.689523,5.4253764 66.411905,10.29275"
          id="path19485" />
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:normal;font-family:serif;-inkscape-font-specification:serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       x="47.849525"
+       y="-53.941284"
+       id="text21369"
+       transform="rotate(67.045889)"><tspan
+         sodipodi:role="line"
+         id="tspan21367"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:normal;font-family:serif;-inkscape-font-specification:serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+         x="47.849525"
+         y="-53.941284">$\Ve=\Vv-\Vv^*$</tspan></text>
   </g>
 </svg>
