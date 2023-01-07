@@ -54,7 +54,7 @@
 %\setmonofont{Noto Sans Mono CJK SC}
 \setmonofont{FiraCode Nerd Font Mono}
 
-% 定制公式
+% 定制公式字体
 
 %% 数学
 \RequirePackage{amsmath}
@@ -63,6 +63,25 @@
 
 \newcommand{\mat}[1]{\bm{#1}}
 \renewcommand{\vec}[1]{\bm{#1}}
+
+% 公式环境
+\RequirePackage{amsthm}
+\newtheoremstyle{example}% name of the style to be used
+  {}% measure of space to leave above the theorem. E.g.: 3pt
+  {}% measure of space to leave below the theorem. E.g.: 3pt
+  {\itshape}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {：}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+
+\theoremstyle{example}
+\newtheorem{example}{例题}[chapter]
+\newtheorem*{solution}{解答}
+
+%% 定制表格，参考https://www.semipol.de/posts/2018/06/latex-best-practices-lessons-learned-from-writing-a-phd-thesis/
+\RequirePackage{booktabs}
 
 %% 重新定义\emph，参考https://tex.stackexchange.com/questions/227639/redefine-emph-to-be-both-bold-and-italic
 \let\emph\relax % there's no \RedeclareTextFontCommand

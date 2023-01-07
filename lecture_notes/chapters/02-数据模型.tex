@@ -129,6 +129,104 @@
     \Vu^*=(\MW^{-1}\MW)^{-1}\MW^{-1}\Vv
 \end{equation}
 
+\begin{example}
+    假设路段交通流的速度$v$和密度$k$之间的关系可以用线性函数$v=a\cdot k+b$描述。
+    根据以下数据用线性回归方法确定参数$a$、$b$。
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            数据编号 & 速度（公里/小时） & 密度（辆/公里） \\
+            \midrule
+            1 & 80 & 10 \\
+            2 & 50 & 100 \\
+            3 & 20 & 150\\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+\begin{solution}
+    假设直线$v=a\cdot k+b$同时通过三个数据点，可以写出线性方程
+    \begin{equation*}
+        \MW\Vu=\Vv
+    \end{equation*}
+    其中
+    \begin{equation*}
+        \MW=
+        \begin{bmatrix}
+            10 & 1\\
+            100 & 1\\
+            150 & 1
+        \end{bmatrix}\text{，}\quad
+        \Vu=
+        \begin{bmatrix}
+            a\\
+            b
+        \end{bmatrix}\text{，}\quad
+        \Vv=
+        \begin{bmatrix}
+            80\\
+            50\\
+            20
+        \end{bmatrix}\text{。}
+    \end{equation*}
+
+    可以由于$\MW$矩阵的形状是$3\times2$方程无解，我们使用最小二乘法，在方程左右两侧同时乘以$\MW$的转置矩阵$\MW^T$，得到新的方程
+    \begin{align*}
+        \MW^T\MW\Vu&=\MW^T\Vv\\
+        \intertext{代入数据得到}
+        \begin{bmatrix}
+            10 & 100 & 150\\
+            1 & 1 & 1\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            10 & 1\\
+            100 & 1\\
+            150 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            a\\
+            b
+        \end{bmatrix}&=
+        \begin{bmatrix}
+            10 & 100 & 150\\
+            1 & 1 & 1\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            80\\
+            50\\
+            20
+        \end{bmatrix}\\
+        \intertext{化简得到}
+        \begin{bmatrix}
+            32600 & 260\\
+            260 & 3
+        \end{bmatrix}
+        \begin{bmatrix}
+            a\\
+            b
+        \end{bmatrix}&=
+        \begin{bmatrix}
+            8800\\
+            150\\
+        \end{bmatrix}\\
+        \intertext{解方程得到}
+        \begin{bmatrix}
+            a\\
+            b
+        \end{bmatrix}&=
+        \begin{bmatrix}
+            -\frac{63}{151}\\
+            \frac{14010}{151}
+        \end{bmatrix}
+        \approx
+        \begin{bmatrix}
+            -0.417\\
+            86.15
+        \end{bmatrix}
+    \end{align*}
+\end{solution}
+
+
 \section{线性回归原理}
 
 \cref{eq:least-square}中我们直接给出了线性回归求解最佳近似解的方法，本节将解释为什么这个公式有效。要理解线性回归的原理，有代数和几何两个角度。其中代数角度的关键是残差平方和最小，几何角度的关键是向量空间的正交投影。以下将分别解释。
@@ -209,18 +307,19 @@
 其中$\Vv$是所有速度实测值的向量，$\MW$是权重矩阵，$\Vk$是所有密度数据的向量，$\vec{1}$是全$1$向量。
 
 把\cref{eq:e-vec}带入\cref{eq:sse-vec}，然后展开化简可以得到
-\begin{equation}\label{eq:sse-function}
-    \begin{split}
-        \text{SSE}(\Vu) &= \Ve^T\cdot\Ve\\
-        &=(\Vv-\MW\Vu)^T(\Vv-\MW\Vu)\\
-        &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
-        -\Vv^T\MW\Vu-(\MW\Vu)^T\Vv\\
-        &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
-        -(\MW\Vu)^T\Vv-(\MW\Vu)^T\Vv\\
-        &=\Vu^T\MW^T\MW\Vu-2\Vu^T\MW^T\Vv-\Vv^T\Vv
-    \end{split}
-\end{equation}
-其中我们用到向量点积的交换关系$\Va^T\Vb=\Vb^T\Va$，以及矩阵转置的交换关系$(\MA\MB)^T=\MB^T\MA^T$。
+\begin{align*}
+    \text{SSE}(\Vu) &= \Ve^T\cdot\Ve\\
+    &=(\Vv-\MW\Vu)^T(\Vv-\MW\Vu)\\
+    &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
+    -\Vv^T\MW\Vu-(\MW\Vu)^T\Vv\\
+    \intertext{使用向量点积的交换关系$\Va^T\Vb=\Vb^T\Va$得到}
+    &=\Vv^T\Vv+(\MW\Vu)^T\MW\Vu
+    -(\MW\Vu)^T\Vv-(\MW\Vu)^T\Vv\\
+    \intertext{再使用矩阵转置的交换关系$(\MA\MB)^T=\MB^T\MA^T$，最终得到}
+    \text{SSE}(\Vu) &=\Vu^T\MW^T\MW\Vu-2\Vu^T\MW^T\Vv-\Vv^T\Vv 
+    \addtocounter{equation}{1}\tag{\theequation}
+    \label{eq:sse-function}
+\end{align*}
 
 \subsubsection{残差平方和最小化}
 
