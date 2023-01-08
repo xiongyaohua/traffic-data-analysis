@@ -157,7 +157,16 @@
 \RequirePackage[backend=biber,style=alphabetic,url=false]{biblatex}
 
 %% 定制交叉引用
+\RequirePackage{hyperref}
 \RequirePackage{cleveref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=orange,
+  filecolor=magenta,      
+  urlcolor=cyan,
+}
+
+
 \crefname{figure}{图}{图} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 \crefname{table}{表}{表} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 \crefname{equation}{公式}{公式} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
