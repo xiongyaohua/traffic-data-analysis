@@ -89,7 +89,7 @@
     或者
     \[\MA\cdot \vec{\theta}=\Vy\]
     其中$\MA=\begin{bmatrix}
-        \Vx & \vec{1}
+        \Vx & \Vi
     \end{bmatrix}$；$\Vx$是自变量，$\Vy$是因变量，$\Vt$是参数。
     参数$\Vt$有唯一解的前提条件是$\MA$\emph{可逆}，此时
     $\vec{\theta}= \MA^{-1}\cdot\Vy$
@@ -363,7 +363,7 @@
         
         此时问题转化为\emph{多元}线性回归
         \begin{equation}
-            \Vy = a\cdot\Vx_1+b\cdot\Vx_2+c\cdot\vec{1}
+            \Vy = a\cdot\Vx_1+b\cdot\Vx_2+c\cdot\Vi
         \end{equation}
     \end{frame}
 
@@ -375,7 +375,7 @@
         \end{equation}
         
         只是此时$\MA=\begin{bmatrix}
-                \Vx_1 & \Vx_2 & \vec{1}
+                \Vx_1 & \Vx_2 & \Vi
             \end{bmatrix}$
             ，$\Vt=\begin{bmatrix}a&b&c\end{bmatrix}^T$
 
@@ -394,7 +394,7 @@
 
         这里看一个二次多项式，也就是抛物线的例子。
         \begin{equation}
-            \Vy = a\Vx^2+b\Vx+c\vec{1}
+            \Vy = a\Vx^2+b\Vx+c\Vi
         \end{equation}
     \end{frame}
 
@@ -406,7 +406,7 @@
         \end{equation}
         
         只是此时$\MA=\begin{bmatrix}
-                \Vx^2 & \Vx & \vec{1}
+                \Vx^2 & \Vx & \Vi
             \end{bmatrix}$
             ，$\Vt=\begin{bmatrix}a&b&c\end{bmatrix}^T$
 

@@ -71,6 +71,8 @@
 %\setmathfont{Asana Math}
 %\setmathfont{TeX Gyre Pagella Math}
 \setmathfont{TeX Gyre Termes Math}
+%\setmathfont{TeX Gyre Schola Math}
+%\setmathfont{TeX Gyre Bonum Math}
 
 
 % 公式环境

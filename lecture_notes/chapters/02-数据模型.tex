@@ -300,11 +300,11 @@
             \vdots\\
             1
         \end{bmatrix}\\
-        &=\Vv-a\Vk-b\vec{1}\\
+        &=\Vv-a\Vk-b\Vi\\
         &=\Vv-\MW\Vu
     \end{split}
 \end{equation}
-其中$\Vv$是所有速度实测值的向量，$\MW$是权重矩阵，$\Vk$是所有密度数据的向量，$\vec{1}$是全$1$向量。
+其中$\Vv$是所有速度实测值的向量，$\MW$是权重矩阵，$\Vk$是所有密度数据的向量，$\Vi$是全$1$向量。
 
 把\cref{eq:e-vec}带入\cref{eq:sse-vec}，然后展开化简可以得到
 \begin{align*}
@@ -349,7 +349,7 @@
 我们回到原来的线性方程$\MW\Vu=\Vv$，可以把它展开成列向量形式
 \begin{align}
     \begin{bmatrix}
-        \Vk & \vec{1}
+        \Vk & \Vi
     \end{bmatrix}
     \begin{bmatrix}
         a \\
@@ -358,18 +358,18 @@
     &=
     \Vv\\
     \intertext{再展开得}
-    a\Vk+b\vec{1}&=\Vv
+    a\Vk+b\Vi&=\Vv
     \label{eq:least-square-vector}
 \end{align}
-我们可以从向量组合的角度理解\cref{eq:least-square-vector}。等式左边代表两个向量$\Vk$和$\vec{1}$按照任意系数$a$、$b$进行组合；从直觉可以判断所有可能的组合构成一个平面。
+我们可以从向量组合的角度理解\cref{eq:least-square-vector}。等式左边代表两个向量$\Vk$和$\Vi$按照任意系数$a$、$b$进行组合；从直觉可以判断所有可能的组合构成一个平面。
 等式右边是向量$\Vv$，当$\Vv$不在平面内时不论$a$、$b$如何取值等式都不能成立，所以方程无解。
 
 为了求解$a$、$b$的近似值，我们可以用平面内的点$\Vv^*$代替$\Vv$，两者的误差是$\Ve=\Vv-\Vv^*$。为了尽量准确我们要求$\Vv^*$是平面上离$\Vv$最近的一点，可以证明$\Vv^*$是$\Vv$在平面上的垂直投影点，也即是说$\Ve$与平面垂直，参考\cref{fig:ls-vectors}帮助理解。
-平面上的向量$\Vv^*$可以表示为$\Vk$和$\vec{1}$的线性组合，我们分别用$a^*$、$b^*$表示未知的组合系数，得到
+平面上的向量$\Vv^*$可以表示为$\Vk$和$\Vi$的线性组合，我们分别用$a^*$、$b^*$表示未知的组合系数，得到
 \begin{equation}\label{eq:v-star}
-    \Vv^*=a^*\Vk+b^*\vec{1}=
+    \Vv^*=a^*\Vk+b^*\Vi=
     \begin{bmatrix}
-        \Vk & \vec{1}
+        \Vk & \Vi
     \end{bmatrix}
     \cdot
     \begin{bmatrix}
@@ -381,22 +381,22 @@
 
 \begin{figure}[h]
     \ContinuedFloat* %必须，不然编号出错，见caption宏包
-    \sidecaption{线性回归的几何意义是找到目标矢量$\Vv$在由$\Vk$和$\vec{1}$张开平面上的投影点$\Vv^*$}
+    \sidecaption{线性回归的几何意义是找到目标矢量$\Vv$在由$\Vk$和$\Vi$张开平面上的投影点$\Vv^*$}
     \def\svgwidth{\linewidth}
     \input{images/least-square-vector-space.pdf_tex}
     \label{fig:ls-vectors}
 \end{figure}
 
-因为$\Ve$和平面垂直，所以$\Ve$和平面内的任意向量，如$\Vk$或者$\vec{1}$，都垂直。
+因为$\Ve$和平面垂直，所以$\Ve$和平面内的任意向量，如$\Vk$或者$\Vi$，都垂直。
 根据垂直向量点积为$0$的性质，我们有
 \begin{equation*}
-    \Ve^T\cdot\Vk=0\text{，}\quad\Ve^T\cdot\vec{1}=0
+    \Ve^T\cdot\Vk=0\text{，}\quad\Ve^T\cdot\Vi=0
 \end{equation*}
 整理成矩阵形式
 \begin{align}
     \Ve^T\cdot
     \begin{bmatrix}
-        \Vk & \vec{1}
+        \Vk & \Vi
     \end{bmatrix}
     &=
     \Ve^T\cdot\MW

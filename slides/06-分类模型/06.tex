@@ -47,7 +47,7 @@
     \sigma(\MA\Vt)
   \end{equation}
   其中，$\Vy$矢量中的元素只能取$\{0,1\}$，分别表示两种\emph{可能的类别}；$\MA=\begin{bmatrix}
-    \Vx & \vec{1}
+    \Vx & \Vi
   \end{bmatrix}$
 
   通过选取最佳的参数$\Vt^*$使\emph{预测值}$\hat{\Vy}=\sigma(\MA\Vt^*)$与\emph{观测值}$\Vy$\emph{最接近}。如何定义“接近”？
@@ -113,7 +113,7 @@
   \end{equation*}
   进一步整理成矩阵形式有
   \begin{equation}\label{eq:logistic_loss}
-    \boxed{-\frac{1}{m}[\Vy^T\cdot\log(\sigma(\MA\Vt))+(1-\Vy)^T\cdot\log(\vec{1}-\sigma(\MA\Vt))]}
+    \boxed{-\frac{1}{m}[\Vy^T\cdot\log(\sigma(\MA\Vt))+(1-\Vy)^T\cdot\log(\Vi-\sigma(\MA\Vt))]}
   \end{equation}
 \end{frame}
 
