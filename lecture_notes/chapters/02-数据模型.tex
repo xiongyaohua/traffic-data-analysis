@@ -345,11 +345,42 @@
 整理最后两项我们得到\cref{eq:least-square}中的最小二乘形式，由此说明从代数角度理解，线性回归的意义是找出最优拟合参数，让残差平方和最小的。
 
 \subsection{列向量空间正交投影}
-\begin{figure}
-    \sidecaption{线性回归的几何意义是将目标矢量$\Vv$的\emph{近似}线性组合。}
+
+我们回到原来的线性方程$\MW\Vu=\Vv$，可以把它展开成列向量形式
+\begin{align}
+    \begin{bmatrix}
+        \Vk & \vec{1}
+    \end{bmatrix}
+    \begin{bmatrix}
+        a \\
+        b
+    \end{bmatrix}
+    &=
+    \Vv\\
+    \intertext{再展开得}
+    a\Vk+b\vec{1}&=\Vv
+    \label{eq:least-square-vector}
+\end{align}
+我们可以从向量组合的角度理解\cref{eq:least-square-vector}。等式左边代表两个向量$\Vk$和$\vec{1}$按照任意系数$a$、$b$进行组合；从直觉可以判断所有可能的组合构成一个平面。
+等式右边是向量$\Vv$，当$\Vv$不在平面内时不论$a$、$b$如何取值等式都不能成立，所以方程无解。
+
+为了求解$a$、$b$的近似值，我们可以用平面内的点$\Vv^*$代替$\Vv$，两者的误差是$\Ve=\Vv-\Vv^*$。为了尽量准确我们要求$\Vv^*$是平面上离$\Vv$最近的一点，可以证明$\Vv^*$是$\Vv$在平面上的垂直投影点，也即是说$\Ve$与平面垂直。
+参考\cref{fig:ls-vectors}帮助理解。
+参考\cref{fig:ls-vectors1}帮助理解。
+
+\begin{figure}[h]
+    \ContinuedFloat* %必须，不然编号出错，见caption宏包
+    \sidecaption{线性回归的几何意义是找到目标矢量$\Vv$在由$\Vk$和$\vec{1}$张开平面上的投影点$\Vv^*$}
     \def\svgwidth{\linewidth}
-    %\fbox{\input{images/least-square-vector-space.pdf_tex}}
     \input{images/least-square-vector-space.pdf_tex}
+    \label{fig:ls-vectors}
 \end{figure}
 
-阿多发$af\leq ad f\mathbb{R}\mu≦μ≤ℝ$阿多发
+\begin{figure}[h]
+    \ContinuedFloat* %必须，不然编号出错，见caption宏包
+    \sidecaption{线性回归的几何意义是找到目标矢量$\Vv$在由$\Vk$和$\vec{1}$张开平面上的投影点$\Vv^*$}
+    \def\svgwidth{\linewidth}
+    \input{images/least-square-vector-space.pdf_tex}
+    \label{fig:ls-vectors1}
+\end{figure}
+
