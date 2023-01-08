@@ -37,7 +37,10 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-\LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
+% XeLaTeX用
+%\LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
+% LuaTeX用
+\LoadClass[fontset=none,twoside,punct=zh_CN/kaiming,12pt,a4paper]{ctexrep}
 
 %% 页面布局定制
 \RequirePackage[a4paper,left=2.5cm,right=6cm,marginpar=4.5cm]{geometry}
@@ -55,14 +58,16 @@
 \setmonofont{FiraCode Nerd Font Mono}
 
 % 定制公式字体
-
 %% 数学
 \RequirePackage{amsmath}
-\RequirePackage{bm}
+\RequirePackage{amsfonts} % mathbb
+%\RequirePackage{bm} %和unicode-math冲突
 \RequirePackage{mathtools}
+\RequirePackage[bold-style=ISO]{unicode-math}
+%\setmathfont{Asana Math}
+%\setmathfont{TeX Gyre Pagella Math}
+\setmathfont{TeX Gyre Termes Math}
 
-\newcommand{\mat}[1]{\bm{#1}}
-\renewcommand{\vec}[1]{\bm{#1}}
 
 % 公式环境
 \RequirePackage{amsthm}
