@@ -37,10 +37,14 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-% XeLaTeX用
-%\LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
-% LuaTeX用
-\LoadClass[fontset=none,twoside,punct=zh_CN/kaiming,12pt,a4paper]{ctexrep}
+
+\RequirePackage{iftex}
+\ifxetex
+  \LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
+\fi
+\ifluatex
+  \LoadClass[fontset=none,twoside,punct=zh_CN/kaiming,12pt,a4paper]{ctexrep}
+\fi
 
 %% 页面布局定制
 \RequirePackage[a4paper,left=2.5cm,right=6cm,marginpar=4.5cm]{geometry}
