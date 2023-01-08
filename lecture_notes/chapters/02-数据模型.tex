@@ -393,7 +393,7 @@
     \Ve^T\cdot\Vk=0\text{，}\quad\Ve^T\cdot\vec{1}=0
 \end{equation*}
 整理成矩阵形式
-\begin{align*}
+\begin{align}
     \Ve^T\cdot
     \begin{bmatrix}
         \Vk & \vec{1}
@@ -403,7 +403,7 @@
     =
     \begin{bmatrix}
         0 & 0
-    \end{bmatrix}\\
+    \end{bmatrix}\nonumber\\
     \intertext{两侧同时转置有}
     \MW^T\cdot\Ve
     &=
@@ -411,9 +411,8 @@
         0\\
         0
     \end{bmatrix}
-    \addtocounter{equation}{1}\tag{\theequation}
     \label{eq:ls-perpendicular}
-\end{align*}
+\end{align}
 
 将\cref{eq:v-star}代入\cref{eq:ls-perpendicular}，有
 \begin{equation*}
