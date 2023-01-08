@@ -118,15 +118,15 @@
 无法求解的原因是我们有两个未知量$a$、$b$，但是有三个约束条件分别来自数据$p_1$、$p_2$、$p_3$，这类问题在数学上称为\emph{过约束}问题。
 
 线性回归是解决这类过约束问题的常见方法，能够在没有精确解的情况下求出最优近似解。
-当线性方程组$\Vv=\MW\cdot\Vu$因为过约束无解时，方程两边同时乘以$\MW^{-1}$，将\cref{eq:la-eq}转化为以下\emph{最小二乘形式}
+当线性方程组$\Vv=\MW\cdot\Vu$因为过约束无解时，方程两边同时乘以$\MW^T$，将\cref{eq:la-eq}转化为以下\emph{最小二乘形式}
 \begin{equation}\label{eq:least-square}
-    \MW^{-1}\Vv=\MW^{-1}\MW\cdot\Vu
+    \MW^T\MW\cdot\Vu=\MW^T\Vv
 \end{equation}
-此时方程是否有解由矩阵$\MW^{-1}\MW$是否可逆决定。
-可以证明无论$\MW$是什么形状，$\MW^{-1}\MW$都是正方形矩阵，一般来说可逆。
+此时方程是否有解由矩阵$\MW^T\MW$是否可逆决定。
+可以证明无论$\MW$是什么形状，$\MW^T\MW$都是正方形矩阵，一般来说可逆。
 为了与精确解区别，最佳近似解记作$\Vu^*$，可以通过以下公式计算
 \begin{equation}
-    \Vu^*=(\MW^{-1}\MW)^{-1}\MW^{-1}\Vv
+    \Vu^*=(\MW^T\MW)^T\MW^{-1}\Vv
 \end{equation}
 
 \begin{example}
@@ -364,9 +364,20 @@
 我们可以从向量组合的角度理解\cref{eq:least-square-vector}。等式左边代表两个向量$\Vk$和$\vec{1}$按照任意系数$a$、$b$进行组合；从直觉可以判断所有可能的组合构成一个平面。
 等式右边是向量$\Vv$，当$\Vv$不在平面内时不论$a$、$b$如何取值等式都不能成立，所以方程无解。
 
-为了求解$a$、$b$的近似值，我们可以用平面内的点$\Vv^*$代替$\Vv$，两者的误差是$\Ve=\Vv-\Vv^*$。为了尽量准确我们要求$\Vv^*$是平面上离$\Vv$最近的一点，可以证明$\Vv^*$是$\Vv$在平面上的垂直投影点，也即是说$\Ve$与平面垂直。
-参考\cref{fig:ls-vectors}帮助理解。
-参考\cref{fig:ls-vectors1}帮助理解。
+为了求解$a$、$b$的近似值，我们可以用平面内的点$\Vv^*$代替$\Vv$，两者的误差是$\Ve=\Vv-\Vv^*$。为了尽量准确我们要求$\Vv^*$是平面上离$\Vv$最近的一点，可以证明$\Vv^*$是$\Vv$在平面上的垂直投影点，也即是说$\Ve$与平面垂直，参考\cref{fig:ls-vectors}帮助理解。
+平面上的向量$\Vv^*$可以表示为$\Vk$和$\vec{1}$的线性组合，我们分别用$a^*$、$b^*$表示未知的组合系数，得到
+\begin{equation}\label{eq:v-star}
+    \Vv^*=a^*\Vk+b^*\vec{1}=
+    \begin{bmatrix}
+        \Vk & \vec{1}
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        a^*\\
+        b^*
+    \end{bmatrix}
+    =\MW\Vu^*
+\end{equation}
 
 \begin{figure}[h]
     \ContinuedFloat* %必须，不然编号出错，见caption宏包
@@ -376,11 +387,40 @@
     \label{fig:ls-vectors}
 \end{figure}
 
-\begin{figure}[h]
-    \ContinuedFloat* %必须，不然编号出错，见caption宏包
-    \sidecaption{线性回归的几何意义是找到目标矢量$\Vv$在由$\Vk$和$\vec{1}$张开平面上的投影点$\Vv^*$}
-    \def\svgwidth{\linewidth}
-    \input{images/least-square-vector-space.pdf_tex}
-    \label{fig:ls-vectors1}
-\end{figure}
+因为$\Ve$和平面垂直，所以$\Ve$和平面内的任意向量，如$\Vk$或者$\vec{1}$，都垂直。
+根据垂直向量点积为$0$的性质，我们有
+\begin{equation*}
+    \Ve^T\cdot\Vk=0\text{，}\quad\Ve^T\cdot\vec{1}=0
+\end{equation*}
+整理成矩阵形式
+\begin{align*}
+    \Ve^T\cdot
+    \begin{bmatrix}
+        \Vk & \vec{1}
+    \end{bmatrix}
+    &=
+    \Ve^T\cdot\MW
+    =
+    \begin{bmatrix}
+        0 & 0
+    \end{bmatrix}\\
+    \intertext{两侧同时转置有}
+    \MW^T\cdot\Ve
+    &=
+    \begin{bmatrix}
+        0\\
+        0
+    \end{bmatrix}
+    \addtocounter{equation}{1}\tag{\theequation}
+    \label{eq:ls-perpendicular}
+\end{align*}
 
+将\cref{eq:v-star}代入\cref{eq:ls-perpendicular}，有
+\begin{equation*}
+    \MW^T\Ve=\MW^T(\Vv-\Vv^*)=\MW^T(\Vv-\MW\Vu^*)=\vec{0}
+\end{equation*}
+展开右侧两项，化简之后得到
+\begin{equation}
+    \MW^T\MW\Vu^*=\MW^T\Vv
+\end{equation}
+可以看到这个结果就是\cref{eq:least-square}中的最小二乘形式。
