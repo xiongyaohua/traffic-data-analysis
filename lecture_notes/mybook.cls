@@ -40,20 +40,20 @@
 
 \RequirePackage{iftex}
 \ifxetex
-  \LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper]{ctexrep}
+  \LoadClass[fontset=none,twoside,punct=kaiming,12pt,a4paper,fontset=fandol]{ctexrep}
 \fi
 \ifluatex
-  \LoadClass[fontset=none,twoside,punct=zh_CN/kaiming,12pt,a4paper]{ctexrep}
+  \LoadClass[fontset=none,twoside,punct=zh_CN/kaiming,12pt,a4paper,fontset=fandol]{ctexrep}
 \fi
 
 %% 页面布局定制
 \RequirePackage[a4paper,left=2.5cm,right=6cm,marginpar=4.5cm]{geometry}
 
 %% 定制中文字体。serif->宋体、sans->黑体、italic->楷体。
-\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
-\setCJKsansfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Sans CJK SC Light}
-\RequirePackage{marginnote}
-\RequirePackage{sidenotes}
+%\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Serif CJK SC}
+%\setCJKsansfont[Scale=0.96,ItalicFont={Kaiti SC}]{Noto Sans CJK SC Light}
+%\setCJKmainfont[Scale=0.96,ItalicFont={Kaiti SC}]{FandolSong}
+%\setCJKsansfont[Scale=0.96,ItalicFont={Kaiti SC}]{FandolHei}
 
 % 定制英文字体
 \setmainfont{TeX Gyre Termes}
@@ -80,7 +80,7 @@
 \newtheoremstyle{example}% name of the style to be used
   {}% measure of space to leave above the theorem. E.g.: 3pt
   {}% measure of space to leave below the theorem. E.g.: 3pt
-  {\itshape}% name of font to use in the body of the theorem
+  {\kaishu}% name of font to use in the body of the theorem
   {}% measure of space to indent
   {\bfseries}% name of head font
   {：}% punctuation between head and body
@@ -118,8 +118,13 @@
 \lhead{\textnormal{\rightmark}}
 %\lhead{\textbf{\rightmark}}
 \rhead{-\ \thepage\ -}
+\setlength{\headheight}{15pt}
 \pagestyle{fancy}
 
+
+%% 边栏
+\RequirePackage{marginnote}
+\RequirePackage{sidenotes}
 
 %% 定制sidenotes的样式，来自
 %% https://tex.stackexchange.com/questions/532245/how-to-modify-fonts-in-sidenotes
@@ -163,7 +168,7 @@
 \RequirePackage{cleveref}
 \hypersetup{
   colorlinks=true,
-  linkcolor=orange,
+  linkcolor=blue,
   filecolor=magenta,      
   urlcolor=cyan,
 }
@@ -208,6 +213,7 @@
   \end{myframe}
   \vskip 30pt
 }
+
 
 %% microtype
 \RequirePackage{microtype}
