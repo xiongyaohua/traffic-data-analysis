@@ -1,0 +1,169 @@
+\chapter{扩展线性回归}
+
+上一章我们从路段交通流参数建模问题入手，接触到了线性回归模型，用直线拟合密度--速度之间的函数关系。
+直线拟合应用范围很广泛，但是现实生活中很多变量之间的函数关系很可能不是直线，线性回归是否还能适用？
+如果能够适用，那么“\emph{线性}”的含义并不等价于“直线”，具体是什么？本章我们回答这些问题。
+
+从本章开始为了讨论的\emph{一般性}我们引入一套新的字母命名规则。自变量用$x$表示、因变量用$y$、自变量的权重系数用$w$，其他系数用$b$。
+根据新规则上一章讨论的线性回归模型可以从\cref{eq:linear-kv}转写成以下形式
+\begin{equation*}
+    y=w\cdot x+b
+\end{equation*}
+
+\section{高次多项式线性回归}
+我们现在来拟合流量--密度关系。如\cref{fig:empirical-qkv}右侧所示，随着密度上升路段流量呈现先上升后下降的关系，这种情况用直线拟合显然不合适。能够满足先升后降的函数中最简单的是二次多项式函数，也就是抛物线
+\begin{equation}
+    y=w_2 x^2 + w_1 x + b
+\end{equation}
+其中$w_2$、$w_1$、$b$都是未知参数。
+
+\subsection{抛物线}
+
+我们是否可以用上一章的思路来确定参数呢？答案是可以的。假设我们有$n$个数据点$\{x_i,y_i\},i=1\ldots n$，如果抛物线通过所有数据点，以下方程组应该成立
+\begin{equation}
+    \begin{bmatrix}
+        y_1\\
+        y_2\\
+        \vdots\\
+        y_n
+    \end{bmatrix}=
+    \begin{bmatrix}
+        x_1^2 & x_1 & 1\\
+        x_2^2 & x_2 & 1\\
+        \vdots & \vdots & \vdots\\
+        x_n^2 & x_n & 1\\
+    \end{bmatrix}
+    \begin{bmatrix}
+        w_2\\
+        w_1\\
+        b
+    \end{bmatrix}
+\end{equation}
+用向量和矩阵符号缩写后得到
+\begin{align}
+    \Vy&=\begin{bmatrix}
+        \Vx^2 &\Vx &\Vi
+    \end{bmatrix}
+    \begin{bmatrix}
+        w_2\\
+        w_1\\
+        b
+    \end{bmatrix}\\
+    &=\MA\Vtheta
+\end{align}
+其中$\MA$表示矩阵，$\Vtheta$表示所有未知参数。
+
+沿用之前的分析，可以推测我们有$n=3$个数据点时，$\MA$是$3×3$正方形矩阵，方程一般有解；当$n≧4$时方程一般无解。此时我们依然可以利用最小二乘法，在方程左右两边同时乘以$\MA^T$然后求解近似解
+\begin{equation}
+    \MA^T\MA\Vtheta^*=\MA^T\Vy
+\end{equation}
+
+\begin{example}
+    基于以下数据，用抛物线拟合\emph{密度}和流量的关系。
+    注意数据中密度没有直接给出，需要用公式$q=k·v$计算得到。
+    \begin{center}
+        \begin{tabular}{ccc}
+            \toprule
+            数据编号 & 速度（公里/小时） & 密度（辆/公里） \\
+            \midrule
+            1 & 80 & 10 \\
+            2 & 50 & 100 \\
+            3 & 20 & 150\\
+            4 & 40 & 80\\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{example}
+
+\subsection{一般规律}
+
+从直线和抛物线函数拟合的分析中我们可以总结出一般规律。首先，线性回归中“线性”一词的含义不是函数本身是直线，而是拟合函数可以写成以参数$\MA$为未知数的线性方程形式。然后对于$n$个数据点，要\emph{完美拟合}我们需要用$n-1$次多项式，此时参数可以直接求解；当多项式次数少于$n-1$时我们只能\emph{近似拟合}，参数用最小二乘法近似求解。
+
+需要注意的是在实际数据处理中我们一般不会用高次多项式去完美拟合数据，而是有意识的选取低次多项式近似拟合。
+这样做的原因是近似拟合可以去除数据中的噪音，详细解释见过拟合相关章节。
+
+\section{高维度线性回归}
+
+线性回归方法也可以向高维度数据扩展。前面的分析中每个数据点的自变量$x$和因变量$y$都是\emph{标量}，也就是说自变量和因变量之间是“一对一”的关系。但现实世界中自变量和因变量都可以是\emph{矢量}，两者之间的关系更加复杂。例如，决定交通流速度的不只是车辆密度，实际上可能还有道路能见度、风速等等各种指标；这是“一对多”关系。卫星定位问题中车辆位置分为横坐标和纵坐标两个分量，共同由五颗卫星的距离决定，这是“多对多”关系。
+
+高维度线性回归是指自变量或因变量是矢量的线性回归，又称为\emph{多元线性回归}。
+这里我们主要介绍自变量为标量，因变量为矢量的“一对多”形式。
+假设我们有$n$个数据点$\{\Vx_i,y_i\}, i=1\cdot n$，其中自变量$\Vx_i$是$m$维矢量
+\begin{equation*}
+    \Vx_i=
+    \begin{bmatrix}
+        x_{i1}\\
+        x_{i2}\\
+        \vdots\\
+        x_{im}\\
+    \end{bmatrix}
+\end{equation*}
+
+假设自变量与因变量之间是线性关系，第$i$组数据的关系写作
+\begin{align}
+    y_i &= w_1x_{i1}+w_2x_{i2}+\cdots+w_mx_{im}+b\nonumber\\
+    &=\begin{bmatrix}
+        x_{i1} & x_{i2} & \cdots & x_{im}
+    \end{bmatrix}
+    \begin{bmatrix}
+        w_1\\
+        w_2\\
+        \vdots\\
+        w_m
+    \end{bmatrix}+b\nonumber\\
+    &=\Vx_i^T\Vw+b
+\end{align}
+其中$\Vw$是权重系数构成的向量。
+
+所有$n$组数据的关系共同可以写作
+\begin{align}
+    \begin{bmatrix}
+        y_1\\
+        y_2\\
+        \vdots\\
+        y_n
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+        \Vx_1^T\\
+        \Vx_2^T\\
+        \vdots\\
+        \Vx_n^T
+    \end{bmatrix}\Vw+
+    \begin{bmatrix}
+        b\\
+        b\\
+        \vdots\\
+        b
+    \end{bmatrix}\nonumber\\
+    \intertext{整理成矩阵形式}
+    \Vy&=\MX\Vw+\Vi b\\
+    &=\begin{bmatrix}
+        \MX & \Vi
+    \end{bmatrix}
+    \begin{bmatrix}
+        \Vw\\
+        b
+    \end{bmatrix}\nonumber\\
+    &=\MA\Vtheta
+\end{align}
+其中$\Vy$是所有因变量构成的向量，$\MX$是由所有自变量属性数据构成的矩阵
+\begin{equation*}
+    \Vy=\begin{bmatrix}
+        y_1\\
+        y_2\\
+        \vdots\\
+        y_n
+    \end{bmatrix}
+    \text{，}\quad
+    \MX=\begin{bmatrix}
+        x_{11} & x_{12} & \cdots & x_{1m}\\
+        x_{21} & x_{22} & \cdots & x_{1m}\\
+        \vdots & \vdots & \vdots & \vdots\\
+        x_{n1} & x_{n2} & \cdots & x_{nm}\\
+    \end{bmatrix}
+\end{equation*}
+
+\begin{example}
+    多元线性回归。
+\end{example}
