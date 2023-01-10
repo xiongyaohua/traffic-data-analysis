@@ -177,6 +177,10 @@
 \crefname{figure}{图}{图} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 \crefname{table}{表}{表} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
 \crefname{equation}{公式}{公式} % 更好的方式是以语言配置的形式提供，见 cleveref 文档第 10 节
+\crefname{chapter}{章}{章}
+\crefname{section}{节}{节}
+\crefformat{chapter}{#2第#1章#3}
+\crefformat{section}{#2第#1节#3}
 
 %% 代码列表用minted
 \RequirePackage{minted}
