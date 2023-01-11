@@ -87,9 +87,13 @@
   { }% space after theorem head; " " = normal interword space
   {}% Manually specify head
 
+\RequirePackage{mdframed}
 \theoremstyle{example}
 \newtheorem{example}{例题}[chapter]
-\newtheorem*{solution}{解答}
+\newtheorem*{mdsolution}{解答}
+\newenvironment{solution}%
+  {\begin{mdframed}[backgroundcolor=lightgray]\begin{mdsolution}}%
+  {\end{mdsolution}\end{mdframed}}
 
 %% 定制表格，参考https://www.semipol.de/posts/2018/06/latex-best-practices-lessons-learned-from-writing-a-phd-thesis/
 \RequirePackage{booktabs}
