@@ -92,7 +92,7 @@
 \newtheorem{example}{例题}[chapter]
 \newtheorem*{mdsolution}{解答}
 \newenvironment{solution}%
-  {\begin{mdframed}[backgroundcolor=lightgray]\begin{mdsolution}}%
+  {\begin{mdframed}[hidealllines=true,backgroundcolor=lightgray]\begin{mdsolution}}%
   {\end{mdsolution}\end{mdframed}}
 
 %% 定制表格，参考https://www.semipol.de/posts/2018/06/latex-best-practices-lessons-learned-from-writing-a-phd-thesis/
