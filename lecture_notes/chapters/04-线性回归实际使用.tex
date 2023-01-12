@@ -29,7 +29,7 @@
     \Ve^T\Ve + \lambda\Vtheta^T\Vtheta &=
     (\Vy-\MA\Vtheta)^T(\Vy-\MA\Vtheta) + \lambda\Vtheta^T\Vtheta \nonumber\\
     &=(\Vtheta^T\MA^T\MA\Vtheta+\lambda\Vtheta^T\Vtheta)-2\Vtheta^T\MA\Vy+\Vy^T\Vy\nonumber\\
-    \intertext{利用单位矩阵$\MI$的性质$\Vtheta^T\Vtheta=\Vtheta^T\MI\Vtheta$得到}
+    \intertext{利用单位矩阵$\MI$的性质$\Vtheta^T\Vtheta=\Vtheta^T\MI\Vtheta$}
     &=\Vtheta^T(\MA^T\MA+\lambda\MI)\Vtheta-2\Vtheta^T\MA^T\Vy+\Vy^T\Vy。
 \end{align}
 
@@ -49,4 +49,4 @@
 要直观的理解山脊回归的功能可以先考虑$\lambda$的两种极端情况$\lambda=0$和$\lambda=\infty$。
 当$\lambda=0$时$\lambda\MI=0$，山脊回归等价于基本的线性回归，此时拟合函数在$y$方向上剧烈震荡。
 当$\lambda=\infty$时方程左侧的$\MA^T\MA$可以忽略不计，$\Vtheta^*=\MA^T\Vy/\infty=0$，即所有参数都是$0$，此时拟合函数是一条直线。
-我们的目标是适当选取$\lambda$值，让拟合函数形状介于两种极端之间，既保持光滑，又符合数据总体趋势，如\cref{fig:under_over_fit}所示。
+实际应用中我们的目标是适当选取$\lambda$值，让拟合函数形状介于两种极端之间，既保持光滑，又符合数据总体趋势，如\cref{fig:under_over_fit}所示。
