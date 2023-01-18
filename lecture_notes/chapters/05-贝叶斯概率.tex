@@ -121,12 +121,11 @@
 
 下一步福尔摩斯需要根据军事、政治、地理知识来确定似然概率$P(D|H_i)，i\in S$。
 根据整段文字，福尔摩斯并做出决策并非基于单一证据，而是综合考虑了以下三条证据：
-\begin{enumerate}
+\begin{itemize}
     \item “手腕白”，“脸黑”，说明是被晒黑的；
     \item “受伤”，说明发生过战斗；
     \item “憔悴”，“历经了艰苦”，说明后勤补给困难，战场环境艰苦。
-\end{enumerate}
-
+\end{itemize}
 三条证据分别记做$D_{晒黑}$，$D_{战斗}$，$D_{艰苦}$，那么似然概率
 \begin{equation*}
     P(D|H_i)=P(D_{晒黑}D_{战斗}D_{艰苦}|H_i)。
@@ -137,6 +136,7 @@
 \end{equation}
 
 \begin{table}
+    \sidecaption{贝叶斯估计过程。}
     \begin{tabular}{lcccc}
         \toprule
         & $X=印度$ & $X=爱尔兰$ & $X=南非$ & $X=阿富汗$\\
@@ -150,6 +150,5 @@
         归一化 & 1 & 80 & 10 & 10\\
         \bottomrule
     \end{tabular}
-    \caption{贝叶斯估计过程。}
     \label{tab:bayes}
 \end{table}

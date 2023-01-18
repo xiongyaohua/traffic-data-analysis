@@ -221,7 +221,8 @@
   \end{myframe}
   \vskip 30pt
 }
-
+\RequirePackage{enumitem}
+\setlist{noitemsep}
 
 %% microtype
 \RequirePackage{microtype}
