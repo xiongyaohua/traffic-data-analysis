@@ -1,2 +1,68 @@
 \chapter{贝叶斯参数估计}
 
+根据上一章节所学的贝叶斯概率相关知识，可以引出贝叶斯参数估计。
+贝叶斯参数估计从参数的先验知识和样本出发。将参数θ看成一个未知的随机变量，通过对第$i$类样本$D_i$的观察，使概率密度分布$P(D_i|θ)$转化为后验概率$P(θ|D_i)$，再求贝叶斯估计。
+
+\section{贝叶斯线性回归}
+贝叶斯线性回归主要由两部分组成：
+\begin{itemize}
+    \item 求解后验分布；
+    \item 依据后验分布以及样本$D$,进行预测。
+\end{itemize}
+贝叶斯线性回归的模型与普通线性回归一致:
+\begin{equation}
+ y=ax+b+\epsilon
+\end{equation}
+
+\subsection{求解后验}
+首先假设先验概率$P(H）$为均匀分布，即$f(a,b)=1$
+\begin{equation}
+ P(D/H)=P(D_1...D_n|H)=P(D_1|H)P(D_2|H)...P(D_n|H)
+\end{equation}
+\begin{equation}
+ P(D_1|θ)=P(X_1,Y_1|θ)
+\end{equation}
+\begin{equation}
+ y=ax+b+\epsilon
+\end{equation}
+残差
+\begin{equation}
+r=y-(ax+b)
+\end{equation}
+假设$r$~$N(0,\sigma^2)$，即服从正态分布
+则
+\begin{equation}
+  P(D|θ)=P(X,Y|θ)=\frac{1}{\sqrt{2π}\sigma}e^\frac{-(y-(ax+b))^2}{2\sigma^2}
+\end{equation}
+假设：1.先验概率=1
+      2.误差正态分布
+\begin{equation}
+f(a,b)=\quad \prod_{i=1}^n \frac{1}{\sqrt{2π}\sigma}e^\frac{-(r_i)^2}{2\sigma^2} \quad*P(θ)
+\end{equation}
+\begin{equation}
+logf(a,b)=\sum_{i=1}^n -\frac{1}{2}\frac{r_i^2}{\sigma^2} \quad
+\end{equation} 
+\begin{equation}
+ \underset{a,b} {argmax }{\sum_{i=1}^n }-\frac{(r_i)^2}{\sigma^2}
+\end{equation}
+
+正则化
+\begin{equation}
+ \underset{a,b} {argmin }{\sum_{i=1}^n }\frac{(r_i)^2}{\sigma^2}+\lambda\sum\theta^2
+\end{equation}
+
+来自不同分布的点
+\begin{equation}
+ \underset{a,b} {argmin }{\sum_{i=1}^n }-\frac{(r_i)^2}{\sigma_i^2}
+\end{equation}
+
+|          | 通用性 | 性能 |
+|---------|---------|---------|
+| 线性回归   | 好      | 差 |
+| 贝叶斯回归 | 差      | 好 |
+
+\subsection{预测}
+
+\begin{equation}
+ P(y|x)=\int P(y|\theta,x)P(\theta|D)d\theta
+\end{equation}
